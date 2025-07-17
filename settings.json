@@ -91,7 +91,7 @@
   "model": "sonnet",
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
-    "github_nokonoko1203",
+    "github",
     "context7",
     "playwright",
     "readability",

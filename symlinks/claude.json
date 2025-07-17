@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "github_nokonoko1203": {
+    "github": {
       "command": "docker",
       "args": [
         "run",

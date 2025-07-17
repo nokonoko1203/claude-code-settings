@@ -6,7 +6,6 @@ description: Create requirements specification for the given task (Stage 1 of Sp
 ## Context
 
 - Task description: $ARGUMENTS
-- Requirements template: @~/.claude/CLAUDE.md#stage-1-requirements要件定義
 
 ## Your task
 

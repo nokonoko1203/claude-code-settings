@@ -28,33 +28,20 @@ When receiving development tasks, please follow the 4-stage workflow below. This
 #### Stage 1: Requirements
 
 - Analyze user requests and convert them into clear functional requirements
-- Document the following items in `.tmp/requirements.md`:
-  - **概要**: Summary of the requirements
-  - **目的**: Project or task objectives
-  - **機能要件**: Detailed list of features to implement
-  - **非機能要件**: Performance, security, maintainability, etc.
-  - **制約事項**: Technical constraints and prerequisites
-  - **成功基準**: Definition of completion
+- Document requirements in `.tmp/requirements.md`
+- Use `/requirements` command for detailed template
 
 #### Stage 2: Design
 
 - Create technical design based on requirements
-- Document the following items in `.tmp/design.md`:
-  - **概要**: Summary of the requirements
-  - **アーキテクチャ概要**: Overall system configuration
-  - **コンポーネント設計**: Responsibilities and interactions of each module
-  - **データフロー**: Data flow and transformation
-  - **APIインターフェース**: Internal/external API specifications
-  - **技術選定**: Libraries and frameworks to use
+- Document design in `.tmp/design.md`
+- Use `/design` command for detailed template
 
 #### Stage 3: Task List
 
 - Break down design into implementable units
-- Document in `.tmp/tasks.md` with the following format:
-  - Small tasks in commit units
-  - Dependencies between tasks
-  - Clear implementation order
-  - Completion conditions for each task
+- Document in `.tmp/tasks.md`
+- Use `/tasks` command for detailed template
 - Manage major tasks with TodoWrite tool
 
 #### Stage 4: Implementation

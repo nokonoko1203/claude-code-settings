@@ -6,7 +6,6 @@ description: Create detailed design specification based on requirements (Stage 2
 ## Context
 
 - Requirements document: @.tmp/requirements.md
-- Design template: @~/.claude/CLAUDE.md#stage-2-design詳細設計
 
 ## Your task
 

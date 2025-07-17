@@ -1,0 +1,55 @@
+{
+  "shortcuts": {
+    "returnToMenu": {
+      "ctrl": true,
+      "key": "e"
+    },
+    "cancel": {
+      "key": "escape"
+    }
+  },
+  "statusHooks": {},
+  "worktree": {
+    "autoDirectory": true,
+    "autoDirectoryPattern": "<HOME_DIR_PATH>/worktrees/{branch}"
+  },
+  "command": {
+    "command": "claude",
+    "args": [
+      "--resume",
+      "--mcp-config=<HOME_DIR_PATH>/.claude/.mcp.json"
+    ]
+  },
+  "commandPresets": {
+    "presets": [
+      {
+        "id": "claude-resume",
+        "name": "Claude Code (Resume)",
+        "command": "claude",
+        "args": [
+          "--resume"
+        ],
+        "fallbackArgs": []
+      },
+      {
+        "id": "claude-yolo",
+        "name": "Claude Code (YOLO)",
+        "command": "claude",
+        "args": [
+          "--resume",
+          "--dangerously-skip-permissions"
+        ],
+        "fallbackArgs": []
+      },
+      {
+        "id": "gemini-default",
+        "name": "Gemini CLI",
+        "command": "gemini",
+        "args": [],
+        "detectionStrategy": "gemini"
+      }
+    ],
+    "defaultPresetId": "claude-resume",
+    "selectPresetOnStart": true
+  }
+}

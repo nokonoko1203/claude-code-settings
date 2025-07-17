@@ -1,0 +1,11 @@
+{
+  "plugins": ["@textlint/markdown"],
+  "rules": {
+    "preset-ja-technical-writing": true,
+    "@textlint-ja/preset-ai-writing": {
+      "ai-tech-writing-guideline": {
+        "severity": "info"
+      }
+    }
+  }
+}

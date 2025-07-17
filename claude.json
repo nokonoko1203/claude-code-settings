@@ -1,0 +1,50 @@
+{
+  "mcpServers": {
+    "github_nokonoko1203": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_TOKEN>"
+      }
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    },
+    "readability": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@mizchi/readability",
+        "--mcp"
+      ]
+    },
+    "textlint": {
+      "command": "npx",
+      "args": [
+        "textlint",
+        "-c",
+        "~/.claude/.textlintrc.json",
+        "--mcp"
+      ]
+    }
+  }
+}

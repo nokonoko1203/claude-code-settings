@@ -188,7 +188,7 @@ This approach centralizes all Claude Code-related configuration files in the `~/
 ## References
 
 - [Claude Code overview](https://docs.anthropic.com/en/docs/claude-code)
-- [Model Context Protocol (MCP)](hhttps://docs.anthropic.com/en/docs/mcp)
+- [Model Context Protocol (MCP)](https://docs.anthropic.com/en/docs/mcp)
 - [textlint](https://textlint.github.io/)
 - [CCManager](https://github.com/kbwo/ccmanager)
 - [Context7](https://context7.com/)

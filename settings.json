@@ -95,7 +95,6 @@
     "context7",
     "playwright",
     "readability",
-    "textlint"
   ],
   "hooks": {
     "PostToolUse": [

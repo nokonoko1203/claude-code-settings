@@ -36,15 +36,6 @@
         "@mizchi/readability",
         "--mcp"
       ]
-    },
-    "textlint": {
-      "command": "npx",
-      "args": [
-        "textlint",
-        "-c",
-        "~/.claude/.textlintrc.json",
-        "--mcp"
-      ]
     }
   }
 }

@@ -1,5 +1,5 @@
 ---
-allowed-tools: mcp__textlint__lintFile, mcp__textlint__getLintFixedFileContent, MultiEdit, Read, TodoWrite
+allowed-tools: Bash(textlint:*), MultiEdit, Read, TodoWrite
 description: Execute textlint on specified files, apply automatic fixes, manually fix remaining errors, and repeat until all errors are resolved
 ---
 
@@ -14,8 +14,8 @@ The file path will be available as `$ARGUMENTS`.
 
 Execution process:
 
-1. **Initial lint execution**: Read the file content and detect issues with textlint
-2. **Apply automatic fixes**: Use `getLintFixedFileContent` to fix auto-fixable issues
+1. **Initial lint execution**: Run `textlint -c ~/.claude/.textlintrc.json <FILE_PATH>` to detect issues
+2. **Apply automatic fixes**: Run `textlint -c ~/.claude/.textlintrc.json --fix <FILE_PATH>` to fix auto-fixable issues
 3. **Execute manual fixes**: Apply manual fixes for remaining issues:
    - Fix sentence-ending punctuation (change colons to periods)
    - Improve mechanical expressions (`**Item**: Description` → `**Item** (Description)`)
@@ -35,6 +35,6 @@ Execution process:
 
 - Original files will be edited directly
 - Large files may take time to process
-- The textlint MCP server must be enabled
+- textlint must be installed and configured with config file at ~/.claude/.textlintrc.json
 
 think hard

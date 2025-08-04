@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*)
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
 description: Create requirements specification for the given task (Stage 1 of Spec-Driven Development)
 ---
 
@@ -14,6 +14,8 @@ description: Create requirements specification for the given task (Stage 1 of Sp
 - Create `.tmp` directory if it doesn't exist
 
 ### 2. Analyze the user's request
+
+**IMPORTANT: When investigating existing files or code, you MUST use serena. Using serena reduces token consumption by 60-80% and efficiently retrieves necessary information through semantic search capabilities.**
 
 Carefully analyze the provided task description and extract:
 

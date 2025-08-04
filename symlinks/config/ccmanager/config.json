@@ -23,6 +23,13 @@
   "commandPresets": {
     "presets": [
       {
+        "id": "claude",
+        "name": "Claude Code",
+        "command": "claude",
+        "args": [],
+        "fallbackArgs": []
+      },
+      {
         "id": "claude-resume",
         "name": "Claude Code (Resume)",
         "command": "claude",
@@ -34,6 +41,15 @@
       {
         "id": "claude-yolo",
         "name": "Claude Code (YOLO)",
+        "command": "claude",
+        "args": [
+          "--dangerously-skip-permissions"
+        ],
+        "fallbackArgs": []
+      },
+      {
+        "id": "claude-yolo-resume",
+        "name": "Claude Code (YOLO Resume)",
         "command": "claude",
         "args": [
           "--resume",

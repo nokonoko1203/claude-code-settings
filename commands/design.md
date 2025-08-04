@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
 description: Create detailed design specification based on requirements (Stage 2 of Spec-Driven Development)
 ---
 
@@ -15,6 +15,8 @@ description: Create detailed design specification based on requirements (Stage 2
 - If not, inform user to run `/requirements` first
 
 ### 2. Analyze requirements
+
+**IMPORTANT: When investigating existing files or code, you MUST use serena. Using serena reduces token consumption by 60-80% and efficiently retrieves necessary information through semantic search capabilities.**
 
 Read and understand the requirements document thoroughly
 
@@ -104,16 +106,16 @@ Create `.tmp/design.md` with the following sections:
 
 [機密データの扱い方]
 
-## 7. テスト戦略
+## 7. テスト設計
 
-### 7.1 単体テスト
+**詳細なテスト設計については、`/test-design`コマンドを実行してテスト設計書を作成してください。**
 
-- カバレッジ目標: [%]
-- テストフレームワーク: [使用ツール]
+テスト設計書では以下の内容を定義します：
 
-### 7.2 統合テスト
-
-[統合テストのアプローチ]
+- 正常系・異常系・境界値テストケース
+- テストデータ設計
+- パフォーマンス・セキュリティテスト
+- 自動化戦略
 
 ## 8. パフォーマンス最適化
 

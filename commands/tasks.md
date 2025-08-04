@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
 description: Break down design into implementable tasks (Stage 3 of Spec-Driven Development)
 ---
 
@@ -16,6 +16,8 @@ description: Break down design into implementable tasks (Stage 3 of Spec-Driven 
 - If not, inform user to complete previous stages first
 
 ### 2. Analyze design document
+
+**IMPORTANT: When investigating existing files or code, you MUST use serena. Using serena reduces token consumption by 60-80% and efficiently retrieves necessary information through semantic search capabilities.**
 
 Read and understand the design thoroughly to identify all implementation tasks
 
@@ -143,4 +145,3 @@ Show the task breakdown and:
 - Include testing tasks throughout, not just at the end
 
 think hard
-

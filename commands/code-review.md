@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), Bash(gh pr view:*), Bash(gh pr diff:*)
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), Bash(gh pr view:*), Bash(gh pr diff:*), mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
 description: Perform a thorough code review of pull requests following established guidelines, focusing on code quality, best practices, and maintainability while providing constructive feedback
 ---
 
@@ -13,6 +13,8 @@ Example: `/code-review 001`
 The PR number will be available as `$ARGUMENTS`.
 
 Review process:
+
+**IMPORTANT: When investigating existing files or code, you MUST use serena. Using serena reduces token consumption by 60-80% and efficiently retrieves necessary information through semantic search capabilities.**
 
 1. **Get PR information:** Use the github cli ( `gh pr view $arguments`) to get the pr details.
 2. **Explore changes:** Use "gh pr diff $arguments" to check for code changes.

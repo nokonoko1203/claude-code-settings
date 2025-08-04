@@ -28,13 +28,19 @@ Execute `/design` command to create technical design based on requirements.
 
 **Present design to user for approval before proceeding**
 
-### 4. Stage 3: Task List
+### 4. Stage 3: Test Design
 
-Execute `/tasks` command to break down design into implementable tasks.
+Execute `/test-design` command to create comprehensive test specification based on design.
+
+**Present test design to user for approval before proceeding**
+
+### 5. Stage 4: Task List
+
+Execute `/tasks` command to break down design and test cases into implementable tasks.
 
 **Present task list to user for approval before proceeding**
 
-### 5. Report completion
+### 6. Report completion
 
 Summarize what was created and inform user that they can now proceed with implementation using the generated specification documents.
 

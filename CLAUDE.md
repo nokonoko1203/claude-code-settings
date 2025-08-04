@@ -21,9 +21,9 @@ This document defines the project's rules, objectives, and progress management m
 
 ### Overview
 
-When receiving development tasks, please follow the 4-stage workflow below. This ensures requirement clarification, structured design, and efficient implementation.
+When receiving development tasks, please follow the 5-stage workflow below. This ensures requirement clarification, structured design, comprehensive testing, and efficient implementation.
 
-### 4-Stage Workflow
+### 5-Stage Workflow
 
 #### Stage 1: Requirements
 
@@ -37,14 +37,20 @@ When receiving development tasks, please follow the 4-stage workflow below. This
 - Document design in `.tmp/design.md`
 - Use `/design` command for detailed template
 
-#### Stage 3: Task List
+#### Stage 3: Test Design
 
-- Break down design into implementable units
+- Create comprehensive test specification based on design
+- Document test cases in `.tmp/test_design.md`
+- Use `/test-design` command for detailed template
+
+#### Stage 4: Task List
+
+- Break down design and test cases into implementable units
 - Document in `.tmp/tasks.md`
 - Use `/tasks` command for detailed template
 - Manage major tasks with TodoWrite tool
 
-#### Stage 4: Implementation
+#### Stage 5: Implementation
 
 - Implement according to task list
 - For each task:
@@ -58,7 +64,8 @@ When receiving development tasks, please follow the 4-stage workflow below. This
 - `/spec` - Start the complete specification-driven development workflow
 - `/requirements` - Execute Stage 1: Requirements only
 - `/design` - Execute Stage 2: Design only (requires requirements)
-- `/tasks` - Execute Stage 3: Task breakdown only (requires design)
+- `/test-design` - Execute Stage 3: Test design only (requires design)
+- `/tasks` - Execute Stage 4: Task breakdown only (requires design and test design)
 
 ### Important Notes
 

@@ -85,7 +85,11 @@
       "Bash(npm remove:*)",
       "Bash(psql:*)",
       "Bash(mysql:*)",
-      "Bash(mongod:*)"
+      "Bash(mongod:*)",
+      "mcp__serena__create_text_file",
+      "mcp__serena__delete_lines",
+      "mcp__serena__execute_shell_command",
+      "mcp__serena__replace_lines"
     ]
   },
   "model": "sonnet",
@@ -93,8 +97,7 @@
   "enabledMcpjsonServers": [
     "github",
     "context7",
-    "playwright",
-    "readability",
+    "playwright"
   ],
   "hooks": {
     "PostToolUse": [

@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 description: Create comprehensive test specification based on design document (Stage 3 of Spec-Driven Development)
 ---
 
@@ -17,6 +17,8 @@ description: Create comprehensive test specification based on design document (S
 ### 2. Analyze design document
 
 **IMPORTANT: When investigating existing files or code, you MUST use serena. Using serena reduces token consumption by 60-80% and efficiently retrieves necessary information through semantic search capabilities.**
+
+**IMPORTANT: When researching OSS libraries or external dependencies, you MUST use context7 tools. First use `mcp__context7__resolve-library-id` to get the library ID, then use `mcp__context7__get-library-docs` to retrieve the latest documentation.**
 
 Read and understand the design document thoroughly, focusing on:
 
@@ -184,4 +186,4 @@ Show the created test design document and ask for:
 - Make test cases specific and measurable
 - Ensure test data is realistic and comprehensive
 
-think hard
+think super hard

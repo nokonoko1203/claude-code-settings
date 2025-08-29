@@ -28,6 +28,12 @@
         "-y",
         "@playwright/mcp@latest"
       ]
+    },
+    "obsidian-mcp-tools": {
+      "command": "<HOME_DIR_PATH>/obsidian_vault/.obsidian/plugins/mcp-tools/bin/mcp-server",
+      "env": {
+        "OBSIDIAN_API_KEY": "<YOUR_OBSIDIAN_API_KEY>"
+      }
     }
   }
 }

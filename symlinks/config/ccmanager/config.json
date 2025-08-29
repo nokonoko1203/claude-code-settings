@@ -1,8 +1,7 @@
 {
   "shortcuts": {
     "returnToMenu": {
-      "ctrl": true,
-      "key": "e"
+      "key": "q"
     },
     "cancel": {
       "key": "escape"
@@ -12,6 +11,12 @@
   "worktree": {
     "autoDirectory": true,
     "autoDirectoryPattern": "<HOME_DIR_PATH>/worktrees/{branch}"
+  },
+  "worktreeHooks": {
+    "post_creation": {
+      "enabled": true,
+      "command": "if [ -f \"$CCMANAGER_GIT_ROOT/.env\" ] && [ ! -f .env ]; then cp \"$CCMANAGER_GIT_ROOT/.env\" .env; fi; code-insiders \"$CCMANAGER_WORKTREE_PATH\";  claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd) && uvx --from git+https://github.com/oraios/serena serena project index"
+    }
   },
   "command": {
     "command": "claude",
@@ -65,7 +70,7 @@
         "detectionStrategy": "gemini"
       }
     ],
-    "defaultPresetId": "claude-resume",
+    "defaultPresetId": "claude",
     "selectPresetOnStart": true
   }
 }

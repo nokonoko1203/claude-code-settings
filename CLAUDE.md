@@ -73,3 +73,9 @@ When receiving development tasks, please follow the 5-stage workflow below. This
 - Please obtain user confirmation before proceeding to the next stage
 - Always use this workflow for complex tasks or new feature development
 - Simple fixes or clear bug fixes can be implemented directly
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.

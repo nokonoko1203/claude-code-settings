@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 description: Create requirements specification for the given task (Stage 1 of Spec-Driven Development)
 ---
 
@@ -16,6 +16,8 @@ description: Create requirements specification for the given task (Stage 1 of Sp
 ### 2. Analyze the user's request
 
 **IMPORTANT: When investigating existing files or code, you MUST use serena. Using serena reduces token consumption by 60-80% and efficiently retrieves necessary information through semantic search capabilities.**
+
+**IMPORTANT: When researching OSS libraries or external dependencies, you MUST use context7 tools. First use `mcp__context7__resolve-library-id` to get the library ID, then use `mcp__context7__get-library-docs` to retrieve the latest documentation.**
 
 Carefully analyze the provided task description and extract:
 
@@ -116,4 +118,4 @@ Show the created requirements document and ask for:
 - Use clear, unambiguous language
 - Include measurable success criteria
 
-think hard
+think super hard

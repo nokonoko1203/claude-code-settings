@@ -3,8 +3,6 @@ allowed-tools: Read, Glob, Grep, Edit, MultiEdit, Write, Bash, TodoWrite, mcp__s
 description: Token-efficient Serena MCP command for structured app development and problem-solving
 ---
 
-※ref: https://zenn.dev/sc30gsw/articles/ff81891959aaef
-
 ## Quick Reference
 
 ```bash
@@ -178,3 +176,5 @@ You are an expert app developer and problem-solver primarily using Serena MCP. F
 - Use `--summary` for overview-only needs
 - Combine related problems in single session
 - Use `--focus` to avoid irrelevant analysis
+
+think super hard

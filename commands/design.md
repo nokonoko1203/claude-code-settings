@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 description: Create detailed design specification based on requirements (Stage 2 of Spec-Driven Development)
 ---
 
@@ -17,6 +17,8 @@ description: Create detailed design specification based on requirements (Stage 2
 ### 2. Analyze requirements
 
 **IMPORTANT: When investigating existing files or code, you MUST use serena. Using serena reduces token consumption by 60-80% and efficiently retrieves necessary information through semantic search capabilities.**
+
+**IMPORTANT: When researching OSS libraries or external dependencies, you MUST use context7 tools. First use `mcp__context7__resolve-library-id` to get the library ID, then use `mcp__context7__get-library-docs` to retrieve the latest documentation.**
 
 Read and understand the requirements document thoroughly
 
@@ -37,7 +39,7 @@ Create `.tmp/design.md` with the following sections:
 
 - 言語: [使用言語とバージョン]
 - フレームワーク: [使用フレームワーク]
-- ライブラリ: [主要ライブラリ一覧]
+- ライブラリ: [主要ライブラリ一覧] ※context7で最新情報を確認
 - ツール: [ビルドツール、テストツールなど]
 
 ## 2. コンポーネント設計
@@ -160,4 +162,4 @@ Show the created design document and ask for:
 - Address all requirements from the requirements document
 ```
 
-think hard
+think super hard

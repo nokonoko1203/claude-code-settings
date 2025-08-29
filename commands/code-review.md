@@ -16,11 +16,17 @@ Review process:
 
 **IMPORTANT: When investigating existing files or code, you MUST use serena. Using serena reduces token consumption by 60-80% and efficiently retrieves necessary information through semantic search capabilities.**
 
+**CRITICAL: Before starting any code review, you MUST read and understand the implementation guidelines:**
+- Read `@~/.claude/templates/frontend-implementation-guidelines.md` for frontend code reviews
+- Read `@~/.claude/templates/backend-implementation-guidelines.md` for backend code reviews
+- Apply the specific principles from these guidelines during your review
+
 1. **Get PR information:** Use the github cli ( `gh pr view $arguments`) to get the pr details.
-2. **Explore changes:** Use "gh pr diff $arguments" to check for code changes.
-3. **Do code review:** Check the details of the PR and perform a code review.
-4. **Run review:** Perform code reviews according to `Important Guidelines for Write a Comment`".
-5. **Report review results** Instead of using something like create pull_request_review, save the review results in `.tmp`. Add a comment to a line that has improvements or concerns. If revisions are clear, use the suggestions proactively.
+2. **Read implementation guidelines:** Read the relevant guideline files based on the code being reviewed.
+3. **Explore changes:** Use "gh pr diff $arguments" to check for code changes.
+4. **Do code review:** Check the details of the PR and perform a code review following the implementation guidelines.
+5. **Run review:** Perform code reviews according to `Important Guidelines for Write a Comment` and implementation guidelines.
+6. **Report review results** Instead of using something like create pull_request_review, save the review results in `.tmp`. Add a comment to a line that has improvements or concerns. If revisions are clear, use the suggestions proactively.
 
 **Important Guidelines for Writing Comments**
 
@@ -45,7 +51,7 @@ Review process:
 
 ## 変更概要
 
-## 変更ファイル
+## 変更があったファイルの目的と変更内容
 
 ## コード変更の詳細分析
 
@@ -55,6 +61,10 @@ Review process:
 
 ### 改善点・確認点
 
+### 「レビューの観点」に対するコメント
+
+#### 実装ガイドライン準拠性の評価
+
 ## 結論
 
 ---
@@ -63,6 +73,35 @@ Review process:
 
 Focus on the following aspects during review:
 
+**🎯 Implementation Guidelines Compliance (MANDATORY)**
+
+**For Frontend Code (`@~/.claude/templates/frontend-implementation-guidelines.md`):**
+- ✅ **Principle 1**: Separation of Concerns Through Custom Hooks
+- ✅ **Principle 2**: Comprehensive Error Handling with ErrorScreen components
+- ✅ **Principle 3**: Loading State Management with LoadingScreen components
+- ✅ **Principle 4**: Performance Optimization Through Memoization
+- ✅ **Principle 5**: Type Safety with TypeScript
+- ✅ **Principle 6**: Component Decomposition
+- ✅ **Principle 7**: Declarative UI Design
+- ✅ **Principle 8**: Centralized Data Management
+- ✅ **Principle 9**: Externalization of Constants
+- ✅ **Principle 10**: Avoiding Props Drilling
+
+**For Backend Code (`@~/.claude/templates/backend-implementation-guidelines.md`):**
+- ✅ **Principle 1**: Layered Architecture with Clear Boundaries
+- ✅ **Principle 2**: Result-Based Error Handling and Logging
+- ✅ **Principle 3**: Input Validation and Type Safety
+- ✅ **Principle 4**: Dependency Injection for Testability
+- ✅ **Principle 5**: Transaction Management
+- ✅ **Principle 6**: Authentication and Authorization
+- ✅ **Principle 7**: Consistent API Design
+- ✅ **Principle 8**: Performance Optimization
+- ✅ **Principle 9**: Security by Design
+- ✅ **Principle 10**: Observable and Debuggable
+- ✅ **Principle 11**: Reliability Engineering
+- ✅ **Principle 12**: Scalability and Continuous Learning
+
+**General Code Quality (Secondary)**
 - Compliance with CLAUDE.md guidelines
 - Adherence to code quality and best practices
   - Separate responsibilities properly

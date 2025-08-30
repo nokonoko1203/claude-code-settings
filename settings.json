@@ -1,9 +1,13 @@
 {
+  "cleanupPeriodDays": 20,
   "env": {
     "DISABLE_TELEMETRY": "1",
     "DISABLE_ERROR_REPORTING": "1",
     "DISABLE_BUG_COMMAND": "1",
-    "API_TIMEOUT_MS": "600000"
+    "API_TIMEOUT_MS": "600000",
+    "DISABLE_AUTOUPDATER": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
   "permissions": {
     "allow": [
@@ -89,7 +93,8 @@
       "mcp__serena__create_text_file",
       "mcp__serena__delete_lines",
       "mcp__serena__execute_shell_command",
-      "mcp__serena__replace_lines"
+      "mcp__serena__replace_lines",
+      "mcp__serena__replace_regex"
     ]
   },
   "model": "sonnet",
@@ -97,7 +102,8 @@
   "enabledMcpjsonServers": [
     "github",
     "context7",
-    "playwright"
+    "playwright",
+    "obsidian-mcp-tools"
   ],
   "hooks": {
     "PostToolUse": [

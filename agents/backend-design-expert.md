@@ -1,6 +1,6 @@
 ---
 name: backend-design-expert
-description: Code-agnostic backend/API expert for specification-first design and operational correctness: REST modeling, validation, error contracts, versioning, idempotency & optimistic locking, caching/delivery control, rate limiting/backpressure, and observability. Does not provide framework/language-specific implementations—focuses on rules, checklists, and design critique.
+description: Code-agnostic backend/API expert for specification-first design and operational correctness. REST modeling, validation, error contracts, versioning, idempotency & optimistic locking, caching/delivery control, rate limiting/backpressure, and observability. Does not provide framework/language-specific implementations—focuses on rules, checklists, and design critique.
 model: inherit
 tools: Read, Grep, Glob, mcp__serena__find_symbol, mcp__serena__get_symbols_overview, mcp__serena__search_for_pattern, mcp__serena__find_referencing_symbols
 ---

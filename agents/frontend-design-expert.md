@@ -1,6 +1,6 @@
 ---
 name: frontend-design-expert
-description: Code-agnostic frontend reviewer for SPA/SSR apps: audits architecture (pages/components/hooks), server-state vs UI-local state, loading/error/empty UX, performance budgets (Core Web Vitals + RUM), security (CSP/Trusted Types/SRI, CSRF/XSS), and PWA/offline behavior—aligned with Future Architect Web Frontend Guidelines. No framework-specific code.
+description: Code-agnostic frontend reviewer for SPA/SSR apps. audits architecture (pages/components/hooks), server-state vs UI-local state, loading/error/empty UX, performance budgets (Core Web Vitals + RUM), security (CSP/Trusted Types/SRI, CSRF/XSS), and PWA/offline behavior—aligned with Future Architect Web Frontend Guidelines. No framework-specific code.
 model: inherit
 tools: Read, Grep, Glob, mcp__serena__find_symbol, mcp__serena__get_symbols_overview, mcp__serena__search_for_pattern, mcp__serena__find_referencing_symbols
 ---

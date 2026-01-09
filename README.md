@@ -10,33 +10,33 @@ The configuration files in this repository are designed to be placed under `~/.c
 
 ```
 claude-code-settings/
+├── .textlintrc.json   # textlint configuration file
 ├── CLAUDE.md          # Global user guidelines for ~/.claude/ placement
+├── LICENSE            # MIT License file
+├── README.md          # This file
+├── agents/            # Custom agent definitions
+│   ├── backend-design-expert.md           # Backend/API design expert
+│   ├── backend-implementation-engineer.md # Hono + TypeScript backend implementation
+│   ├── code-simplifier.md                 # Anti-over-engineering expert
+│   ├── frontend-design-expert.md          # Frontend design reviewer
+│   └── frontend-implementation-engineer.md # Svelte 5 + SvelteKit implementation
 ├── settings.json      # Claude Code configuration file
-├── commands/          # Custom command definitions
-│   ├── code-review.md    # Execute code review with detailed analysis
-│   ├── d-search.md       # Deep codebase analysis using gemini-cli
-│   ├── design.md         # Technical design phase execution
-│   ├── learn.md          # WebGIS-focused educational code analysis using Serena MCP
-│   ├── marp.md          # Marp presentation creation command
-│   ├── obs.md           # Natural language Obsidian assistant for fleeting notes and tasks
-│   ├── requirements.md   # Requirements definition phase execution
-│   ├── search.md        # Google web search using gemini-cli
-│   ├── serena.md        # Token-efficient Serena MCP command for structured app development
-│   ├── spec.md          # Complete specification-driven development workflow
-│   ├── tasks.md         # Task breakdown phase execution
-│   ├── test-design.md   # Test specification creation (Stage 3 of Spec-Driven Development)
-│   └── textlint.md      # File proofreading and correction with textlint
-├── templates/         # Implementation guideline templates
-│   ├── backend-implementation-guidelines.md   # Backend development best practices
-│   └── frontend-implementation-guidelines.md  # Frontend development best practices
-└── symlinks/         # External tools config files as symbolic links
-    ├── claude.json      # Claude Code global configuration
-    ├── settings.json    # Claude Code settings with MCP configurations
+├── skills/            # Skill definitions
+│   ├── code-review/
+│   │   └── SKILL.md   # PR code review skill
+│   ├── design-principles/
+│   │   └── SKILL.md   # Design system enforcement skill
+│   ├── quality-check/
+│   │   └── SKILL.md   # Code quality verification skill
+│   └── textlint/
+│       └── SKILL.md   # Markdown linting skill
+└── symlinks/          # External tools config files as symbolic links
+    ├── claude.json
     └── config/
         ├── ccmanager/
-        │   └── config.json    # ccmanager: Claude Code project & git worktree manager
+        │   └── config.json
         └── serena/
-            └── serena_config.yml  # Serena MCP configuration
+            └── serena_config.yml  # Serena MCP configuration (symlink)
 ```
 
 ## About the symlinks Folder
@@ -51,44 +51,37 @@ ln -s /path/to/settings.json ~/.claude/settings.json
 
 # Link ccmanager configuration
 ln -s /path/to/.config/ccmanager/config.json ~/.claude/symlinks/config/ccmanager/config.json
-
-# Link serena configuration
-ln -s /path/to/.config/serena/serena_config.yml ~/.claude/symlinks/config/serena/serena_config.yml
 ```
 
 This allows configuration changes to be managed in the repository and shared across multiple environments.
 
-## About the templates Folder
-
-The `templates/` folder contains implementation guideline templates that provide best practices for frontend and backend development. These templates serve as comprehensive references for LLM code generation, ensuring consistent, high-quality, and maintainable code across projects.
-
-### Frontend Implementation Guidelines
-- **10 Universal Principles**: Separation of concerns, error handling, performance optimization, type safety
-- **React Best Practices**: Custom hooks, component decomposition, state management patterns
-- **WebGIS Optimization**: Specialized patterns for geographic data visualization and mapping applications
-
-### Backend Implementation Guidelines  
-- **Architecture Patterns**: Clean architecture, dependency injection, domain-driven design
-- **API Design**: RESTful endpoints, GraphQL schemas, error handling strategies
-- **Database Management**: Query optimization, connection pooling, migration strategies
-
-These templates can be referenced during development to ensure consistency with established patterns and best practices.
-
 ## Key Features
 
-### 1. Specification-Driven Development Workflow
+### 1. Custom Agents and Skills
 
-The biggest feature of this project is the 5-stage specification-driven development workflow:
+This repository provides specialized agents and skills to enhance Claude Code's capabilities:
 
-1. **Requirements Definition** (`/requirements`) - Convert user requests into clear functional requirements
-2. **Design** (`/design`) - Formulate technical design and architecture
-3. **Test Design** (`/test-design`) - Create comprehensive test specification based on design
-4. **Task Breakdown** (`/tasks`) - Divide tasks into implementable units
-5. **Implementation** - Systematic implementation based on task list
+**Agents** - Specialized agents for specific domains:
+- Backend/API design and implementation expertise
+- Frontend development and design review
+- Code simplification and anti-over-engineering
 
-**Note:** The design documents generated by these slash commands are output in Japanese due to the prompts configured in each command.
+**Skills** - User-invocable commands for common tasks:
+- Code review with implementation guidelines
+- Design system enforcement
+- Quality checks and linting
 
-### 2. Efficient Development Rules
+### 2. Interactive Development Workflow
+
+Leverage Claude Code's built-in Plan Mode and AskUserQuestion features to:
+- Clarify requirements through interactive dialogue
+- Create detailed implementation plans before coding
+- Ensure alignment with user intent throughout development
+- Systematically approach complex tasks
+
+This interactive approach ensures specifications are clear before implementation begins.
+
+### 3. Efficient Development Rules
 
 - **Utilize parallel processing**: Multiple independent processes are executed simultaneously
 - **Think in English, respond in Japanese**: Internal processing in English, user responses in Japanese
@@ -101,9 +94,12 @@ The biggest feature of this project is the 5-stage specification-driven developm
 
 Defines project-specific guidelines. Contains the following content:
 
-- **Top-Level Rules**: Basic operational rules
-- **Programming Rules**: Coding conventions (when using TypeScript, etc.)
-- **Development Style**: Detailed specification-driven development workflow
+- **Top-Level Rules**: Basic operational rules including language preference, MCP usage, and testing requirements
+- Responses must be in Japanese
+- Always use Context7 MCP for library information
+- Always use Serena MCP for code investigation
+- Verify frontend functionality with Playwright MCP or Chrome DevTools MCP
+- Use AskUserQuestion for decision-making
 
 ### settings.json
 
@@ -112,9 +108,13 @@ Configuration file that controls Claude Code behavior:
 #### Environment Variable Configuration (`env`)
 ```json
 {
-  "DISABLE_TELEMETRY": "1",        // Disable telemetry
-  "DISABLE_ERROR_REPORTING": "1",   // Disable error reporting
-  "API_TIMEOUT_MS": "600000"        // API timeout (10 minutes)
+  "DISABLE_TELEMETRY": "1",                      // Disable telemetry
+  "DISABLE_ERROR_REPORTING": "1",                // Disable error reporting
+  "DISABLE_BUG_COMMAND": "1",                    // Disable bug command
+  "API_TIMEOUT_MS": "600000",                    // API timeout (10 minutes)
+  "DISABLE_AUTOUPDATER": "0",                    // Auto-updater setting
+  "CLAUDE_CODE_ENABLE_TELEMETRY": "0",           // Claude Code telemetry
+  "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1" // Disable non-essential traffic
 }
 ```
 
@@ -123,81 +123,67 @@ Configuration file that controls Claude Code behavior:
 **allow (allowlist)**:
 - File reading: `Read(**)`
 - Writing to specific directories: `Write(src/**)`, `Write(docs/**)`, `Write(.tmp/**)`
-- Git operations: `git init`, `git add`, `git commit`, `git push origin*`
-- Package management: `npm install`, `pnpm install`
-- MCP related: Use tools like Context7, Playwright, etc.
+- Package management: `pnpm install`, `pnpm run test`, `pnpm run build`
+- Basic shell commands: `ls`, `cat`, `head`, `tail`, `pwd`, `find`, `tree`, `mkdir`, `mv`
+- Docker operations: `docker compose up -d --build`
+- macOS notifications: `osascript -e`
 
 **deny (blocklist)**:
 - Dangerous commands: `sudo`, `rm -rf`
-- Security related: Reading `.env.*` files, `id_rsa`, etc.
-- Direct database operations: `psql`, `mysql`, etc.
+- Git operations: `git push`, `git commit`, `git reset`, `git rebase`
+- Security related: Reading `.env.*` files, `id_rsa`, `id_ed25519`, tokens, keys
+- Writing sensitive files: `.env*`, `**/secrets/**`
+- Network operations: `curl`, `wget`, `nc`
+- Package removal: `npm uninstall`, `npm remove`
+- Direct database operations: `psql`, `mysql`, `mongod`
+- Specific Serena MCP tools: `create_text_file`, `delete_lines`, `execute_shell_command`, `replace_lines`, `replace_regex`
 
 #### Hook Configuration (`hooks`)
 
 **PostToolUse** (Automatic processing after tool use)
-- Record command history (Bash, Read, Write, etc.)
-- Automatic textlint execution when editing Markdown files
+- Automatic Prettier formatting when editing JS/TS/JSON/TSX files
 
 **Notification** (Notification settings - macOS)
-- Display work progress notifications
+- Display notifications with custom messages and titles using macOS notification system
 
 **Stop** (Processing when work is completed)
-- Display completion notifications
+- Display "作業が完了しました" (Work completed) notification
 
 #### MCP Server Configuration (`enabledMcpjsonServers`)
-- GitHub integration (multiple account support)
-- Context7 (document retrieval)
-- Playwright (browser automation)
-- Readability (web article reading)
-- textlint (Japanese proofreading)
-- Obsidian MCP (note management)
-- Serena (semantic code analysis)
+- **context7** - Up-to-date documentation and code examples for libraries
+- **playwright** - Browser automation and testing
+- **serena** - Semantic code analysis and intelligent code navigation
+- **chrome-devtools** - Chrome DevTools integration
 
-### Custom Commands (commands/)
+#### Additional Configuration
+- `cleanupPeriodDays`: 20 - Cleanup period for old data
+- `enableAllProjectMcpServers`: true - Enable all project-specific MCP servers
+- `language`: "Japanese" - Interface language
+- `alwaysThinkingEnabled`: true - Always show thinking process
+- `model`: "opusplan" - Default model for planning
 
-#### Specification-Driven Development Commands
+### Custom Agents (agents/)
 
-| Command         | Stage | Description                                        |
-| --------------- | ----- | -------------------------------------------------- |
-| `/spec`         | All   | Complete specification-driven development workflow |
-| `/requirements` | 1     | Requirements definition phase execution            |
-| `/design`       | 2     | Technical design phase execution                   |
-| `/test-design`  | 3     | Test specification creation                        |
-| `/tasks`        | 4     | Task breakdown phase execution                     |
+Custom agents provide specialized capabilities for specific development tasks. These agents are automatically available when using Claude Code and can be invoked through the Task tool.
 
-#### Analysis and Review Commands
+| Agent                              | Description                                                                                 |
+| ---------------------------------- | ------------------------------------------------------------------------------------------- |
+| `backend-design-expert`            | Code-agnostic backend/API expert for specification-first design and operational correctness |
+| `backend-implementation-engineer`  | Implements backend HTTP APIs using Hono + TypeScript with clean architecture                |
+| `code-simplifier`                  | Expert in preventing AI-generated code from becoming unnecessarily complex                  |
+| `frontend-design-expert`           | Code-agnostic frontend reviewer for SPA/SSR apps, audits architecture and performance       |
+| `frontend-implementation-engineer` | Implements production-ready web apps using Svelte 5 + SvelteKit + TypeScript                |
 
-| Command         | Description                                        |
-| --------------- | -------------------------------------------------- |
-| `/code-review`  | Execute code review with detailed analysis         |
-| `/learn`        | WebGIS-focused educational code analysis using Serena MCP |
-| `/serena`       | Token-efficient Serena MCP command for structured app development |
+### Skills (skills/)
 
-#### Search and Research Commands
+Skills are user-invocable commands that can be called directly using the `/skill-name` syntax.
 
-| Command         | Description                                        |
-| --------------- | -------------------------------------------------- |
-| `/search`       | Google web search using gemini-cli                 |
-| `/d-search`     | Deep codebase analysis using gemini-cli            |
-
-#### Productivity and Documentation Commands
-
-| Command         | Description                                        |
-| --------------- | -------------------------------------------------- |
-| `/obs`          | Natural language Obsidian assistant for fleeting notes and tasks |
-| `/marp`         | Marp presentation creation command                 |
-| `/textlint`     | File proofreading and correction with textlint     |
-
-### Implementation Templates (templates/)
-
-The templates directory provides comprehensive implementation guidelines:
-
-| Template                                    | Purpose                                           |
-| ------------------------------------------- | ------------------------------------------------- |
-| `frontend-implementation-guidelines.md`     | Frontend development best practices and patterns   |
-| `backend-implementation-guidelines.md`      | Backend architecture and API design guidelines    |
-
-These templates serve as reference guides for maintaining code quality and consistency across projects, especially when working with LLM-generated code.
+| Skill                | Description                                                                    |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `/code-review`       | Perform thorough code review of pull requests following established guidelines |
+| `/design-principles` | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe  |
+| `/quality-check`     | Quality checks to run after every code change                                  |
+| `/textlint`          | Execute textlint on specified files with automatic and manual fixes            |
 
 ## Setup
 
@@ -215,11 +201,11 @@ You can either copy the repository contents to `~/.claude/` or create a symbolic
 #### Option A: Copy Contents to ~/.claude/
 ```bash
 # Copy configuration files to ~/.claude/ directory
+cp .textlintrc.json ~/.claude/
 cp CLAUDE.md ~/.claude/
 cp settings.json ~/.claude/
-cp .textlintrc.json ~/.claude/
-cp -r commands ~/.claude/
-cp -r templates ~/.claude/
+cp -r agents ~/.claude/
+cp -r skills ~/.claude/
 cp -r symlinks ~/.claude/
 ```
 
@@ -230,8 +216,8 @@ ln -s /path/to/claude-code-settings ~/.claude/claude-code-settings
 # Then link individual files
 ln -s ~/.claude/claude-code-settings/CLAUDE.md ~/.claude/
 ln -s ~/.claude/claude-code-settings/settings.json ~/.claude/
-ln -s ~/.claude/claude-code-settings/commands ~/.claude/
-ln -s ~/.claude/claude-code-settings/templates ~/.claude/
+ln -s ~/.claude/claude-code-settings/agents ~/.claude/
+ln -s ~/.claude/claude-code-settings/skills ~/.claude/
 ```
 
 ### 3. Configure External Tools Using Symbolic Links
@@ -241,16 +227,12 @@ Create symbolic links from external tool locations to `~/.claude/symlinks/` for 
 ```bash
 # Create symlinks directory structure
 mkdir -p ~/.claude/symlinks/config/ccmanager/
-mkdir -p ~/.claude/symlinks/config/serena/
 
 # Link Claude Code global configuration to symlinks folder
 ln -s ~/claude.json ~/.claude/symlinks/claude.json
 
 # Link ccmanager configuration to symlinks folder
 ln -s ~/.config/ccmanager/config.json ~/.claude/symlinks/config/ccmanager/config.json
-
-# Link serena configuration to symlinks folder
-ln -s ~/.config/serena/serena_config.yml ~/.claude/symlinks/config/serena/serena_config.yml
 ```
 
 This approach centralizes all Claude Code-related configuration files in the `~/.claude/` directory for easier management.

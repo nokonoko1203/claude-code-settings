@@ -1,19 +1,5 @@
 {
   "mcpServers": {
-    "github": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_TOKEN>"
-      }
-    },
     "context7": {
       "type": "stdio",
       "command": "npx",
@@ -29,11 +15,25 @@
         "@playwright/mcp@latest"
       ]
     },
-    "obsidian-mcp-tools": {
-      "command": "<HOME_DIR_PATH>/obsidian_vault/.obsidian/plugins/mcp-tools/bin/mcp-server",
-      "env": {
-        "OBSIDIAN_API_KEY": "<YOUR_OBSIDIAN_API_KEY>"
-      }
+    "serena": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "$(pwd)"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
     }
   }
 }

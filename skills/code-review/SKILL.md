@@ -1,6 +1,8 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), Bash(gh pr view:*), Bash(gh pr diff:*), mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
-description: Perform a thorough code review of pull requests following established guidelines, focusing on code quality, best practices, and maintainability while providing constructive feedback
+name: code-review
+description: Perform a thorough code review of pull requests following established guidelines, focusing on code quality, best practices, and maintainability while providing constructive feedback. Use when reviewing PRs or code changes.
+allowed-tools: TodoWrite, TodoRead, Read, Write, Edit, Bash(mkdir:*), Bash(gh pr view:*), Bash(gh pr diff:*), mcp__serena__find_file, mcp__serena__find_symbol, mcp__serena__list_memories, mcp__serena__search_for_pattern
+user-invocable: true
 ---
 
 ## Code Review Rules

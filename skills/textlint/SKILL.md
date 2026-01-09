@@ -1,6 +1,8 @@
 ---
-allowed-tools: Bash(textlint:*), MultiEdit, Read, TodoWrite
-description: Execute textlint on specified files, apply automatic fixes, manually fix remaining errors, and repeat until all errors are resolved
+name: textlint
+description: Execute textlint on specified files, apply automatic fixes, manually fix remaining errors, and repeat until all errors are resolved. Use when editing markdown or text files that need linting.
+allowed-tools: Bash(textlint:*), Edit, Read, TodoWrite
+user-invocable: true
 ---
 
 ## Textlint Review

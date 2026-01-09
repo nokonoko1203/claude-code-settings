@@ -10,39 +10,23 @@
   "statusHooks": {},
   "worktree": {
     "autoDirectory": true,
-    "autoDirectoryPattern": "<HOME_DIR_PATH>/worktrees/{branch}"
+    "autoDirectoryPattern": "~/github.com/worktrees/{branch}"
   },
   "worktreeHooks": {
     "post_creation": {
       "enabled": true,
-      "command": "if [ -f \"$CCMANAGER_GIT_ROOT/.env\" ] && [ ! -f .env ]; then cp \"$CCMANAGER_GIT_ROOT/.env\" .env; fi; code-insiders \"$CCMANAGER_WORKTREE_PATH\";  claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd) && uvx --from git+https://github.com/oraios/serena serena project index"
+      "command": "sh ~/.config/ccmanager/init_worktree.sh"
     }
   },
   "command": {
     "command": "claude",
     "args": [
       "--resume",
-      "--mcp-config=<HOME_DIR_PATH>/.claude/.mcp.json"
+      "--mcp-config=~/.claude/.mcp.json"
     ]
   },
   "commandPresets": {
     "presets": [
-      {
-        "id": "claude",
-        "name": "Claude Code",
-        "command": "claude",
-        "args": [],
-        "fallbackArgs": []
-      },
-      {
-        "id": "claude-resume",
-        "name": "Claude Code (Resume)",
-        "command": "claude",
-        "args": [
-          "--resume"
-        ],
-        "fallbackArgs": []
-      },
       {
         "id": "claude-yolo",
         "name": "Claude Code (YOLO)",
@@ -63,14 +47,23 @@
         "fallbackArgs": []
       },
       {
-        "id": "gemini-default",
-        "name": "Gemini CLI",
-        "command": "gemini",
+        "id": "claude",
+        "name": "Claude Code",
+        "command": "claude",
         "args": [],
-        "detectionStrategy": "gemini"
+        "fallbackArgs": []
+      },
+      {
+        "id": "claude-resume",
+        "name": "Claude Code (Resume)",
+        "command": "claude",
+        "args": [
+          "--resume"
+        ],
+        "fallbackArgs": []
       }
     ],
-    "defaultPresetId": "claude",
+    "defaultPresetId": "claude-yolo",
     "selectPresetOnStart": true
   }
 }

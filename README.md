@@ -1,5 +1,7 @@
 # Claude Code Settings Best Practices
 
+English | [日本語](./README_ja.md)
+
 A repository collecting best practices for Claude Code settings and customization. We will continue to update and improve this repository to make it even better.
 
 **Note:** Some settings in this repository are specifically configured for Japanese users. Please use LLM to translate and adapt them appropriately to your environment.
@@ -13,7 +15,8 @@ claude-code-settings/
 ├── .textlintrc.json   # textlint configuration file
 ├── CLAUDE.md          # Global user guidelines for ~/.claude/ placement
 ├── LICENSE            # MIT License file
-├── README.md          # This file
+├── README.md          # This file (English)
+├── README_ja.md       # Japanese version
 ├── agents/            # Custom agent definitions
 │   ├── backend-design-expert.md           # Backend/API design expert
 │   ├── backend-implementation-engineer.md # Hono + TypeScript backend implementation
@@ -21,6 +24,8 @@ claude-code-settings/
 │   └── frontend-implementation-engineer.md # Svelte 5 + SvelteKit implementation
 ├── settings.json      # Claude Code configuration file
 ├── skills/            # Skill definitions
+│   ├── agent-memory/
+│   │   └── SKILL.md   # Persistent memory management skill
 │   ├── code-review/
 │   │   └── SKILL.md   # PR code review skill
 │   ├── design-principles/
@@ -194,6 +199,7 @@ Skills are user-invocable commands that can be called directly using the `/skill
 
 | Skill                | Description                                                                    |
 | -------------------- | ------------------------------------------------------------------------------ |
+| `/agent-memory`      | Persistent memory management for storing knowledge across conversations        |
 | `/code-review`       | Perform thorough code review of pull requests following established guidelines |
 | `/design-principles` | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe  |
 | `/quality-check`     | Quality checks to run after every code change                                  |

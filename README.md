@@ -17,7 +17,6 @@ claude-code-settings/
 ├── agents/            # Custom agent definitions
 │   ├── backend-design-expert.md           # Backend/API design expert
 │   ├── backend-implementation-engineer.md # Hono + TypeScript backend implementation
-│   ├── code-simplifier.md                 # Anti-over-engineering expert
 │   ├── frontend-design-expert.md          # Frontend design reviewer
 │   └── frontend-implementation-engineer.md # Svelte 5 + SvelteKit implementation
 ├── settings.json      # Claude Code configuration file
@@ -64,7 +63,6 @@ This repository provides specialized agents and skills to enhance Claude Code's 
 **Agents** - Specialized agents for specific domains:
 - Backend/API design and implementation expertise
 - Frontend development and design review
-- Code simplification and anti-over-engineering
 
 **Skills** - User-invocable commands for common tasks:
 - Code review with implementation guidelines
@@ -170,9 +168,25 @@ Custom agents provide specialized capabilities for specific development tasks. T
 | ---------------------------------- | ------------------------------------------------------------------------------------------- |
 | `backend-design-expert`            | Code-agnostic backend/API expert for specification-first design and operational correctness |
 | `backend-implementation-engineer`  | Implements backend HTTP APIs using Hono + TypeScript with clean architecture                |
-| `code-simplifier`                  | Expert in preventing AI-generated code from becoming unnecessarily complex                  |
 | `frontend-design-expert`           | Code-agnostic frontend reviewer for SPA/SSR apps, audits architecture and performance       |
 | `frontend-implementation-engineer` | Implements production-ready web apps using Svelte 5 + SvelteKit + TypeScript                |
+
+### Official Plugins
+
+Claude Code provides official plugins that can be installed directly from within a Claude Code session. These plugins offer pre-built functionality without requiring manual configuration files.
+
+**Installation:**
+```bash
+# Update the official plugins marketplace
+/plugin marketplace update claude-plugins-official
+
+# Install the code-simplifier plugin
+/plugin install code-simplifier
+```
+
+| Plugin             | Description                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------ |
+| `code-simplifier`  | Expert in preventing AI-generated code from becoming unnecessarily complex                 |
 
 ### Skills (skills/)
 

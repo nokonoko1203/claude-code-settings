@@ -32,6 +32,8 @@ claude-code-settings/
 │   │   └── SKILL.md   # Design system enforcement skill
 │   ├── quality-check/
 │   │   └── SKILL.md   # Code quality verification skill
+│   ├── self-review/
+│   │   └── SKILL.md   # Self-review document generation skill
 │   └── textlint/
 │       └── SKILL.md   # Markdown linting skill
 └── symlinks/          # External tools config files as symbolic links
@@ -203,6 +205,7 @@ Skills are user-invocable commands that can be called directly using the `/skill
 | `/code-review`       | Perform thorough code review of pull requests following established guidelines |
 | `/design-principles` | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe  |
 | `/quality-check`     | Quality checks to run after every code change                                  |
+| `/self-review`       | Generate a self-review document before PR submission in Japanese               |
 | `/textlint`          | Execute textlint on specified files with automatic and manual fixes            |
 
 ## Setup

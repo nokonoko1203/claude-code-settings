@@ -30,6 +30,8 @@ claude-code-settings/
 │   │   └── SKILL.md   # デザインシステム適用スキル
 │   ├── quality-check/
 │   │   └── SKILL.md   # コード品質検証スキル
+│   ├── self-review/
+│   │   └── SKILL.md   # セルフレビュードキュメント生成スキル
 │   └── textlint/
 │       └── SKILL.md   # Markdown リンティングスキル
 └── symlinks/          # 外部ツール設定ファイル（シンボリックリンク）
@@ -201,6 +203,7 @@ Claude Code は、Claude Code セッション内から直接インストール�
 | `/code-review`       | 確立されたガイドラインに従ってプルリクエストの徹底的なコードレビューを実行     |
 | `/design-principles` | Linear、Notion、Stripe にインスパイアされた精密でミニマルなデザインシステムを適用 |
 | `/quality-check`     | コード変更後に実行する品質チェック                                         |
+| `/self-review`       | PR提出前にセルフレビュードキュメントを生成（日本語で出力）                    |
 | `/textlint`          | 指定ファイルで textlint を実行し、自動および手動で修正                       |
 
 ## セットアップ

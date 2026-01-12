@@ -193,9 +193,9 @@ Claude Code provides official plugins that can be installed directly from within
 /plugin install code-simplifier
 ```
 
-| Plugin             | Description                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------ |
-| `code-simplifier`  | Expert in preventing AI-generated code from becoming unnecessarily complex                 |
+| Plugin            | Description                                                                |
+| ----------------- | -------------------------------------------------------------------------- |
+| `code-simplifier` | Expert in preventing AI-generated code from becoming unnecessarily complex |
 
 ### Skills (skills/)
 
@@ -211,57 +211,73 @@ Skills are user-invocable commands that can be called directly using the `/skill
 | `/self-review`       | Generate a self-review document before PR submission in Japanese               |
 | `/textlint`          | Execute textlint on specified files with automatic and manual fixes            |
 
-## Setup
+## Quick Install (curl)
 
-### 1. Clone the Repository
+You can quickly download and set up the configuration files using curl without cloning the repository.
 
-```bash
-git clone https://github.com/nokonoko1203/claude-code-settings.git
-cd claude-code-settings
-```
+> **WARNING: This will overwrite existing files!**
+>
+> If you have already customized files such as `~/.claude/CLAUDE.md`, `~/.claude/settings.json`, or any files in `~/.claude/agents/` or `~/.claude/skills/`, **they will be overwritten and your custom settings will be lost**.
+>
+> **Before running these commands:**
+> 1. Back up your existing `~/.claude/` directory: `cp -r ~/.claude ~/.claude.backup`
+> 2. Or selectively download only the files you need
 
-### 2. Apply Configuration to Claude Code
-
-You can either copy the repository contents to `~/.claude/` or create a symbolic link to keep it synchronized with the repository.
-
-#### Option A: Copy Contents to ~/.claude/
-```bash
-# Copy configuration files to ~/.claude/ directory
-cp .textlintrc.json ~/.claude/
-cp CLAUDE.md ~/.claude/
-cp settings.json ~/.claude/
-cp -r agents ~/.claude/
-cp -r skills ~/.claude/
-cp -r symlinks ~/.claude/
-```
-
-#### Option B: Link Repository to ~/.claude/ (Recommended)
-```bash
-# Create symbolic link to keep repository synchronized
-ln -s /path/to/claude-code-settings ~/.claude/claude-code-settings
-# Then link individual files
-ln -s ~/.claude/claude-code-settings/CLAUDE.md ~/.claude/
-ln -s ~/.claude/claude-code-settings/settings.json ~/.claude/
-ln -s ~/.claude/claude-code-settings/agents ~/.claude/
-ln -s ~/.claude/claude-code-settings/skills ~/.claude/
-```
-
-### 3. Configure External Tools Using Symbolic Links
-
-Create symbolic links from external tool locations to `~/.claude/symlinks/` for centralized management:
+### Download All Files
 
 ```bash
-# Create symlinks directory structure
-mkdir -p ~/.claude/symlinks/config/ccmanager/
+# Create necessary directories
+mkdir -p ~/.claude/agents
+mkdir -p ~/.claude/skills/{agent-browser,agent-memory,code-review,design-principles,quality-check,self-review,textlint}
 
-# Link Claude Code global configuration to symlinks folder
-ln -s ~/claude.json ~/.claude/symlinks/claude.json
+# Download main configuration files
+curl -o ~/.claude/CLAUDE.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/CLAUDE.md
+curl -o ~/.claude/settings.json \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/settings.json
 
-# Link ccmanager configuration to symlinks folder
-ln -s ~/.config/ccmanager/config.json ~/.claude/symlinks/config/ccmanager/config.json
+# Download agents
+curl -o ~/.claude/agents/backend-design-expert.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/backend-design-expert.md
+curl -o ~/.claude/agents/backend-implementation-engineer.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/backend-implementation-engineer.md
+curl -o ~/.claude/agents/frontend-design-expert.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/frontend-design-expert.md
+curl -o ~/.claude/agents/frontend-implementation-engineer.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/frontend-implementation-engineer.md
+
+# Download skills
+curl -o ~/.claude/skills/agent-browser/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/agent-browser/SKILL.md
+curl -o ~/.claude/skills/agent-memory/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/agent-memory/SKILL.md
+curl -o ~/.claude/skills/code-review/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
+curl -o ~/.claude/skills/design-principles/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/design-principles/SKILL.md
+curl -o ~/.claude/skills/quality-check/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/quality-check/SKILL.md
+curl -o ~/.claude/skills/self-review/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/self-review/SKILL.md
+curl -o ~/.claude/skills/textlint/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/textlint/SKILL.md
 ```
 
-This approach centralizes all Claude Code-related configuration files in the `~/.claude/` directory for easier management.
+### Download Individual Files
+
+If you only want specific files, you can download them individually:
+
+```bash
+# Example: Download only the CLAUDE.md
+mkdir -p ~/.claude
+curl -o ~/.claude/CLAUDE.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/CLAUDE.md
+
+# Example: Download only a specific skill
+mkdir -p ~/.claude/skills/code-review
+curl -o ~/.claude/skills/code-review/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
+```
 
 ## References
 

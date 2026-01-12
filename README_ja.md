@@ -171,12 +171,12 @@ Claude Code の動作を制御する設定ファイル：
 
 カスタムエージェントは、特定の開発タスク向けの専門機能を提供します。これらのエージェントは Claude Code 使用時に自動的に利用可能になり、Task ツールを通じて呼び出せます。
 
-| エージェント                         | 説明                                                                             |
-| ---------------------------------- | -------------------------------------------------------------------------------- |
-| `backend-design-expert`            | 仕様優先設計と運用正確性のためのコード非依存バックエンド/API エキスパート              |
-| `backend-implementation-engineer`  | クリーンアーキテクチャで Hono + TypeScript を使用したバックエンド HTTP API を実装     |
+| エージェント                       | 説明                                                                                           |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `backend-design-expert`            | 仕様優先設計と運用正確性のためのコード非依存バックエンド/API エキスパート                      |
+| `backend-implementation-engineer`  | クリーンアーキテクチャで Hono + TypeScript を使用したバックエンド HTTP API を実装              |
 | `frontend-design-expert`           | SPA/SSR アプリ向けのコード非依存フロントエンドレビュアー、アーキテクチャとパフォーマンスを監査 |
-| `frontend-implementation-engineer` | Svelte 5 + SvelteKit + TypeScript を使用した本番対応 Web アプリを実装               |
+| `frontend-implementation-engineer` | Svelte 5 + SvelteKit + TypeScript を使用した本番対応 Web アプリを実装                          |
 
 ### 公式プラグイン
 
@@ -191,75 +191,91 @@ Claude Code は、Claude Code セッション内から直接インストール�
 /plugin install code-simplifier
 ```
 
-| プラグイン          | 説明                                                                    |
-| ------------------ | ----------------------------------------------------------------------- |
-| `code-simplifier`  | AI 生成コードが不必要に複雑になることを防ぐエキスパート                      |
+| プラグイン        | 説明                                                    |
+| ----------------- | ------------------------------------------------------- |
+| `code-simplifier` | AI 生成コードが不必要に複雑になることを防ぐエキスパート |
 
 ### スキル（skills/）
 
 スキルは `/skill-name` 構文で直接呼び出せるユーザー呼び出し可能なコマンドです。
 
-| スキル               | 説明                                                                    |
-| -------------------- | ----------------------------------------------------------------------- |
-| `/agent-browser`     | Web テスト、フォーム入力、スクリーンショット取得のためのブラウザ操作を自動化    |
-| `/agent-memory`      | 会話をまたいで知識を保存する永続メモリ管理                                   |
-| `/code-review`       | 確立されたガイドラインに従ってプルリクエストの徹底的なコードレビューを実行     |
+| スキル               | 説明                                                                              |
+| -------------------- | --------------------------------------------------------------------------------- |
+| `/agent-browser`     | Web テスト、フォーム入力、スクリーンショット取得のためのブラウザ操作を自動化      |
+| `/agent-memory`      | 会話をまたいで知識を保存する永続メモリ管理                                        |
+| `/code-review`       | 確立されたガイドラインに従ってプルリクエストの徹底的なコードレビューを実行        |
 | `/design-principles` | Linear、Notion、Stripe にインスパイアされた精密でミニマルなデザインシステムを適用 |
-| `/quality-check`     | コード変更後に実行する品質チェック                                         |
-| `/self-review`       | PR提出前にセルフレビュードキュメントを生成（日本語で出力）                    |
-| `/textlint`          | 指定ファイルで textlint を実行し、自動および手動で修正                       |
+| `/quality-check`     | コード変更後に実行する品質チェック                                                |
+| `/self-review`       | PR提出前にセルフレビュードキュメントを生成（日本語で出力）                        |
+| `/textlint`          | 指定ファイルで textlint を実行し、自動および手動で修正                            |
 
-## セットアップ
+## クイックインストール（curl）
 
-### 1. リポジトリをクローン
+リポジトリをクローンせずに、curl を使用して設定ファイルをすばやくダウンロードしてセットアップできます。
 
-```bash
-git clone https://github.com/nokonoko1203/claude-code-settings.git
-cd claude-code-settings
-```
+> **警告: 既存のファイルが上書きされます！**
+>
+> すでに `~/.claude/CLAUDE.md`、`~/.claude/settings.json`、または `~/.claude/agents/` や `~/.claude/skills/` 内のファイルをカスタマイズしている場合、**それらは上書きされ、カスタム設定は失われます**。
+>
+> **これらのコマンドを実行する前に：**
+> 1. 既存の `~/.claude/` ディレクトリをバックアップしてください: `cp -r ~/.claude ~/.claude.backup`
+> 2. または、必要なファイルのみを選択的にダウンロードしてください
 
-### 2. Claude Code に設定を適用
-
-リポジトリの内容を `~/.claude/` にコピーするか、シンボリックリンクを作成してリポジトリと同期を維持できます。
-
-#### オプション A: ~/.claude/ に内容をコピー
-```bash
-# 設定ファイルを ~/.claude/ ディレクトリにコピー
-cp .textlintrc.json ~/.claude/
-cp CLAUDE.md ~/.claude/
-cp settings.json ~/.claude/
-cp -r agents ~/.claude/
-cp -r skills ~/.claude/
-cp -r symlinks ~/.claude/
-```
-
-#### オプション B: リポジトリを ~/.claude/ にリンク（推奨）
-```bash
-# リポジトリを同期するためのシンボリックリンクを作成
-ln -s /path/to/claude-code-settings ~/.claude/claude-code-settings
-# 個別ファイルをリンク
-ln -s ~/.claude/claude-code-settings/CLAUDE.md ~/.claude/
-ln -s ~/.claude/claude-code-settings/settings.json ~/.claude/
-ln -s ~/.claude/claude-code-settings/agents ~/.claude/
-ln -s ~/.claude/claude-code-settings/skills ~/.claude/
-```
-
-### 3. シンボリックリンクを使用した外部ツールの設定
-
-一元管理のため、外部ツールの場所から `~/.claude/symlinks/` へのシンボリックリンクを作成します：
+### すべてのファイルをダウンロード
 
 ```bash
-# symlinks ディレクトリ構造を作成
-mkdir -p ~/.claude/symlinks/config/ccmanager/
+# 必要なディレクトリを作成
+mkdir -p ~/.claude/agents
+mkdir -p ~/.claude/skills/{agent-browser,agent-memory,code-review,design-principles,quality-check,self-review,textlint}
 
-# Claude Code グローバル設定を symlinks フォルダにリンク
-ln -s ~/claude.json ~/.claude/symlinks/claude.json
+# メイン設定ファイルをダウンロード
+curl -o ~/.claude/CLAUDE.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/CLAUDE.md
+curl -o ~/.claude/settings.json \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/settings.json
 
-# ccmanager 設定を symlinks フォルダにリンク
-ln -s ~/.config/ccmanager/config.json ~/.claude/symlinks/config/ccmanager/config.json
+# エージェントをダウンロード
+curl -o ~/.claude/agents/backend-design-expert.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/backend-design-expert.md
+curl -o ~/.claude/agents/backend-implementation-engineer.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/backend-implementation-engineer.md
+curl -o ~/.claude/agents/frontend-design-expert.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/frontend-design-expert.md
+curl -o ~/.claude/agents/frontend-implementation-engineer.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/frontend-implementation-engineer.md
+
+# スキルをダウンロード
+curl -o ~/.claude/skills/agent-browser/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/agent-browser/SKILL.md
+curl -o ~/.claude/skills/agent-memory/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/agent-memory/SKILL.md
+curl -o ~/.claude/skills/code-review/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
+curl -o ~/.claude/skills/design-principles/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/design-principles/SKILL.md
+curl -o ~/.claude/skills/quality-check/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/quality-check/SKILL.md
+curl -o ~/.claude/skills/self-review/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/self-review/SKILL.md
+curl -o ~/.claude/skills/textlint/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/textlint/SKILL.md
 ```
 
-このアプローチにより、すべての Claude Code 関連設定ファイルを `~/.claude/` ディレクトリに集約し、管理を容易にします。
+### 個別ファイルのダウンロード
+
+特定のファイルのみが必要な場合は、個別にダウンロードできます：
+
+```bash
+# 例: CLAUDE.md のみをダウンロード
+mkdir -p ~/.claude
+curl -o ~/.claude/CLAUDE.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/CLAUDE.md
+
+# 例: 特定のスキルのみをダウンロード
+mkdir -p ~/.claude/skills/code-review
+curl -o ~/.claude/skills/code-review/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
+```
 
 ## 参考リンク
 

@@ -97,6 +97,15 @@ Generate the document with the following structure (in Japanese):
 
 ## 修正1: [修正の概要タイトル]
 
+### 背景
+この修正が必要になった背景や経緯を説明。どのような問題や要件があったのか。
+
+### 実装の意図
+この修正で達成しようとしていることの説明。なぜこのアプローチを選んだのか。
+
+### 実装内容
+具体的に何を実装したかの説明。変更の概要をわかりやすく記述。
+
 ### ファイル
 `path/to/file.ts`
 
@@ -115,8 +124,8 @@ Generate the document with the following structure (in Japanese):
 
 ### 修正の妥当性
 
-| 観点               | 評価                       | 詳細 |
-| ------------------ | -------------------------- | ---- |
+| 観点               | 評価                        | 詳細 |
+| ------------------ | --------------------------- | ---- |
 | 目的               | OK / Needs Review / Problem | 説明 |
 | ロジック           | OK / Needs Review / Problem | 説明 |
 | エラーハンドリング | OK / Needs Review / Problem | 説明 |
@@ -124,8 +133,8 @@ Generate the document with the following structure (in Japanese):
 
 ### テストの有無
 
-| テスト               | 状態    | ファイル   |
-| -------------------- | ------- | ---------- |
+| テスト               | 状態     | ファイル   |
+| -------------------- | -------- | ---------- |
 | [テストケースの説明] | Yes / No | ファイル名 |
 
 ### 懸念事項

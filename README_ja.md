@@ -22,6 +22,8 @@ claude-code-settings/
 │   └── frontend-implementation-engineer.md # Svelte 5 + SvelteKit 実装
 ├── settings.json      # Claude Code 設定ファイル
 ├── skills/            # スキル定義
+│   ├── agent-browser/
+│   │   └── SKILL.md   # ブラウザ自動化スキル
 │   ├── agent-memory/
 │   │   └── SKILL.md   # 永続メモリ管理スキル
 │   ├── code-review/
@@ -199,6 +201,7 @@ Claude Code は、Claude Code セッション内から直接インストール�
 
 | スキル               | 説明                                                                    |
 | -------------------- | ----------------------------------------------------------------------- |
+| `/agent-browser`     | Web テスト、フォーム入力、スクリーンショット取得のためのブラウザ操作を自動化    |
 | `/agent-memory`      | 会話をまたいで知識を保存する永続メモリ管理                                   |
 | `/code-review`       | 確立されたガイドラインに従ってプルリクエストの徹底的なコードレビューを実行     |
 | `/design-principles` | Linear、Notion、Stripe にインスパイアされた精密でミニマルなデザインシステムを適用 |

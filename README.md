@@ -24,6 +24,8 @@ claude-code-settings/
 │   └── frontend-implementation-engineer.md # Svelte 5 + SvelteKit implementation
 ├── settings.json      # Claude Code configuration file
 ├── skills/            # Skill definitions
+│   ├── agent-browser/
+│   │   └── SKILL.md   # Browser automation skill
 │   ├── agent-memory/
 │   │   └── SKILL.md   # Persistent memory management skill
 │   ├── code-review/
@@ -201,6 +203,7 @@ Skills are user-invocable commands that can be called directly using the `/skill
 
 | Skill                | Description                                                                    |
 | -------------------- | ------------------------------------------------------------------------------ |
+| `/agent-browser`     | Automates browser interactions for web testing, form filling, and screenshots  |
 | `/agent-memory`      | Persistent memory management for storing knowledge across conversations        |
 | `/code-review`       | Perform thorough code review of pull requests following established guidelines |
 | `/design-principles` | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe  |

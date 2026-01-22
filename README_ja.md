@@ -26,14 +26,12 @@ claude-code-settings/
 │   │   └── SKILL.md   # ブラウザ自動化スキル
 │   ├── agent-memory/
 │   │   └── SKILL.md   # 永続メモリ管理スキル
+│   ├── bug-investigation/
+│   │   └── SKILL.md   # バグ調査・分析スキル
 │   ├── code-review/
-│   │   └── SKILL.md   # PR コードレビュースキル
+│   │   └── SKILL.md   # 統合コードレビュースキル（PRレビュー + セルフレビュー + 品質チェック）
 │   ├── design-principles/
 │   │   └── SKILL.md   # デザインシステム適用スキル
-│   ├── quality-check/
-│   │   └── SKILL.md   # コード品質検証スキル
-│   ├── self-review/
-│   │   └── SKILL.md   # セルフレビュードキュメント生成スキル
 │   └── textlint/
 │       └── SKILL.md   # Markdown リンティングスキル
 └── symlinks/          # 外部ツール設定ファイル（シンボリックリンク）
@@ -199,15 +197,14 @@ Claude Code は、Claude Code セッション内から直接インストール�
 
 スキルは `/skill-name` 構文で直接呼び出せるユーザー呼び出し可能なコマンドです。
 
-| スキル               | 説明                                                                              |
-| -------------------- | --------------------------------------------------------------------------------- |
-| `/agent-browser`     | Web テスト、フォーム入力、スクリーンショット取得のためのブラウザ操作を自動化      |
-| `/agent-memory`      | 会話をまたいで知識を保存する永続メモリ管理                                        |
-| `/code-review`       | 確立されたガイドラインに従ってプルリクエストの徹底的なコードレビューを実行        |
-| `/design-principles` | Linear、Notion、Stripe にインスパイアされた精密でミニマルなデザインシステムを適用 |
-| `/quality-check`     | コード変更後に実行する品質チェック                                                |
-| `/self-review`       | PR提出前にセルフレビュードキュメントを生成（日本語で出力）                        |
-| `/textlint`          | 指定ファイルで textlint を実行し、自動および手動で修正                            |
+| スキル                 | 説明                                                                              |
+| ---------------------- | --------------------------------------------------------------------------------- |
+| `/agent-browser`       | Web テスト、フォーム入力、スクリーンショット取得のためのブラウザ操作を自動化      |
+| `/agent-memory`        | 会話をまたいで知識を保存する永続メモリ管理                                        |
+| `/bug-investigation`   | バグを体系的に調査し、根本原因分析と修正提案を含むレポートを生成                  |
+| `/code-review`         | PRレビュー、セルフレビュー、品質チェックを統合した包括的コードレビュー            |
+| `/design-principles`   | Linear、Notion、Stripe にインスパイアされた精密でミニマルなデザインシステムを適用 |
+| `/textlint`            | 指定ファイルで textlint を実行し、自動および手動で修正                            |
 
 ## クイックインストール（curl）
 
@@ -226,7 +223,7 @@ Claude Code は、Claude Code セッション内から直接インストール�
 ```bash
 # 必要なディレクトリを作成
 mkdir -p ~/.claude/agents
-mkdir -p ~/.claude/skills/{agent-browser,agent-memory,code-review,design-principles,quality-check,self-review,textlint}
+mkdir -p ~/.claude/skills/{agent-browser,agent-memory,bug-investigation,code-review,design-principles,textlint}
 
 # メイン設定ファイルをダウンロード
 curl -o ~/.claude/CLAUDE.md \
@@ -249,14 +246,12 @@ curl -o ~/.claude/skills/agent-browser/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/agent-browser/SKILL.md
 curl -o ~/.claude/skills/agent-memory/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/agent-memory/SKILL.md
+curl -o ~/.claude/skills/bug-investigation/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/bug-investigation/SKILL.md
 curl -o ~/.claude/skills/code-review/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
 curl -o ~/.claude/skills/design-principles/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/design-principles/SKILL.md
-curl -o ~/.claude/skills/quality-check/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/quality-check/SKILL.md
-curl -o ~/.claude/skills/self-review/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/self-review/SKILL.md
 curl -o ~/.claude/skills/textlint/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/textlint/SKILL.md
 ```

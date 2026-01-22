@@ -38,7 +38,7 @@ Guidelines:
 
 Example:
 ```text
-memories/
+.tmp/memories/
 ├── file-processing/
 │   └── large-file-memory-issue.md
 ├── dependencies/
@@ -79,24 +79,22 @@ Use summary-first approach to efficiently find relevant memories:
 
 ```bash
 # 1. List categories
-ls .claude/skills/agent-memory/memories/
+ls .tmp/memories/
 
 # 2. View all summaries
-rg "^summary:" .claude/skills/agent-memory/memories/ --no-ignore --hidden
+rg "^summary:" .tmp/memories/
 
 # 3. Search summaries for keyword
-rg "^summary:.*keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
+rg "^summary:.*keyword" .tmp/memories/ -i
 
 # 4. Search by tag
-rg "^tags:.*keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
+rg "^tags:.*keyword" .tmp/memories/ -i
 
 # 5. Full-text search (when summary search isn't enough)
-rg "keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
+rg "keyword" .tmp/memories/ -i
 
 # 6. Read specific memory file if relevant
 ```
-
-**Note:** Memory files are gitignored, so use `--no-ignore` and `--hidden` flags with ripgrep.
 
 ## Operations
 
@@ -107,9 +105,9 @@ rg "keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
 3. Write file with required frontmatter (use `date +%Y-%m-%d` for current date)
 
 ```bash
-mkdir -p .claude/skills/agent-memory/memories/category-name/
+mkdir -p .tmp/memories/category-name/
 # Note: Check if file exists before writing to avoid accidental overwrites
-cat > .claude/skills/agent-memory/memories/category-name/filename.md << 'EOF'
+cat > .tmp/memories/category-name/filename.md << 'EOF'
 ---
 summary: "Brief description of this memory"
 created: 2025-01-15
@@ -126,9 +124,9 @@ EOF
 - **Update**: When information changes, update the content and add `updated` field to frontmatter
 - **Delete**: Remove memories that are no longer relevant
   ```bash
-  trash .claude/skills/agent-memory/memories/category-name/filename.md
+  trash .tmp/memories/category-name/filename.md
   # Remove empty category folders
-  rmdir .claude/skills/agent-memory/memories/category-name/ 2>/dev/null || true
+  rmdir .tmp/memories/category-name/ 2>/dev/null || true
   ```
 - **Consolidate**: Merge related memories when they grow
 - **Reorganize**: Move memories to better-fitting categories as the knowledge base evolves

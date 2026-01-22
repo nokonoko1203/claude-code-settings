@@ -28,14 +28,12 @@ claude-code-settings/
 │   │   └── SKILL.md   # Browser automation skill
 │   ├── agent-memory/
 │   │   └── SKILL.md   # Persistent memory management skill
+│   ├── bug-investigation/
+│   │   └── SKILL.md   # Bug investigation and analysis skill
 │   ├── code-review/
-│   │   └── SKILL.md   # PR code review skill
+│   │   └── SKILL.md   # Comprehensive code review skill (PR review + self-review + quality check)
 │   ├── design-principles/
 │   │   └── SKILL.md   # Design system enforcement skill
-│   ├── quality-check/
-│   │   └── SKILL.md   # Code quality verification skill
-│   ├── self-review/
-│   │   └── SKILL.md   # Self-review document generation skill
 │   └── textlint/
 │       └── SKILL.md   # Markdown linting skill
 └── symlinks/          # External tools config files as symbolic links
@@ -201,15 +199,14 @@ Claude Code provides official plugins that can be installed directly from within
 
 Skills are user-invocable commands that can be called directly using the `/skill-name` syntax.
 
-| Skill                | Description                                                                    |
-| -------------------- | ------------------------------------------------------------------------------ |
-| `/agent-browser`     | Automates browser interactions for web testing, form filling, and screenshots  |
-| `/agent-memory`      | Persistent memory management for storing knowledge across conversations        |
-| `/code-review`       | Perform thorough code review of pull requests following established guidelines |
-| `/design-principles` | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe  |
-| `/quality-check`     | Quality checks to run after every code change                                  |
-| `/self-review`       | Generate a self-review document before PR submission in Japanese               |
-| `/textlint`          | Execute textlint on specified files with automatic and manual fixes            |
+| Skill                  | Description                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| `/agent-browser`       | Automates browser interactions for web testing, form filling, and screenshots  |
+| `/agent-memory`        | Persistent memory management for storing knowledge across conversations        |
+| `/bug-investigation`   | Systematically investigate bugs with root cause analysis and fix proposals     |
+| `/code-review`         | Comprehensive code review combining PR review, self-review, and quality checks |
+| `/design-principles`   | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe  |
+| `/textlint`            | Execute textlint on specified files with automatic and manual fixes            |
 
 ## Quick Install (curl)
 
@@ -228,7 +225,7 @@ You can quickly download and set up the configuration files using curl without c
 ```bash
 # Create necessary directories
 mkdir -p ~/.claude/agents
-mkdir -p ~/.claude/skills/{agent-browser,agent-memory,code-review,design-principles,quality-check,self-review,textlint}
+mkdir -p ~/.claude/skills/{agent-browser,agent-memory,bug-investigation,code-review,design-principles,textlint}
 
 # Download main configuration files
 curl -o ~/.claude/CLAUDE.md \
@@ -251,14 +248,12 @@ curl -o ~/.claude/skills/agent-browser/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/agent-browser/SKILL.md
 curl -o ~/.claude/skills/agent-memory/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/agent-memory/SKILL.md
+curl -o ~/.claude/skills/bug-investigation/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/bug-investigation/SKILL.md
 curl -o ~/.claude/skills/code-review/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
 curl -o ~/.claude/skills/design-principles/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/design-principles/SKILL.md
-curl -o ~/.claude/skills/quality-check/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/quality-check/SKILL.md
-curl -o ~/.claude/skills/self-review/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/self-review/SKILL.md
 curl -o ~/.claude/skills/textlint/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/textlint/SKILL.md
 ```

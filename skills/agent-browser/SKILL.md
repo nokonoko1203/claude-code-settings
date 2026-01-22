@@ -28,7 +28,7 @@ agent-browser close             # Close browser
 ```bash
 agent-browser open <url>      # Navigate to URL
 agent-browser back            # Go back
-agent-browser forward         # Go forward  
+agent-browser forward         # Go forward
 agent-browser reload          # Reload page
 agent-browser close           # Close browser
 ```

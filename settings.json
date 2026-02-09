@@ -7,7 +7,8 @@
     "API_TIMEOUT_MS": "600000",
     "DISABLE_AUTOUPDATER": "0",
     "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
     "allow": [
@@ -39,6 +40,8 @@
       "Bash(git commit:*)",
       "Bash(git reset:*)",
       "Bash(git rebase:*)",
+      "Bash(git rm:*)",
+      "Bash(git clean:*)",
       "Read(.env.*)",
       "Read(id_rsa)",
       "Read(id_ed25519)",
@@ -53,7 +56,6 @@
       "Bash(npm remove:*)",
       "Bash(psql:*)",
       "Bash(mysql:*)",
-      "Bash(mongod:*)",
       "mcp__serena__create_text_file",
       "mcp__serena__delete_lines",
       "mcp__serena__execute_shell_command",
@@ -103,7 +105,11 @@
       }
     ]
   },
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  },
   "language": "Japanese",
-  "alwaysThinkingEnabled": true,
-  "model": "opusplan"
+  "alwaysThinkingEnabled": true
 }

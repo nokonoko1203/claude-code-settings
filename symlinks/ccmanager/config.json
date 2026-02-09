@@ -10,7 +10,7 @@
   "statusHooks": {},
   "worktree": {
     "autoDirectory": true,
-    "autoDirectoryPattern": "~/github.com/worktrees/{branch}"
+    "autoDirectoryPattern": "~/worktrees/{branch}"
   },
   "worktreeHooks": {
     "post_creation": {
@@ -20,10 +20,7 @@
   },
   "command": {
     "command": "claude",
-    "args": [
-      "--resume",
-      "--mcp-config=~/.claude/.mcp.json"
-    ]
+    "args": ["--resume", "--mcp-config=~/.claude/.mcp.json"]
   },
   "commandPresets": {
     "presets": [
@@ -31,19 +28,14 @@
         "id": "claude-yolo",
         "name": "Claude Code (YOLO)",
         "command": "claude",
-        "args": [
-          "--dangerously-skip-permissions"
-        ],
+        "args": ["--dangerously-skip-permissions"],
         "fallbackArgs": []
       },
       {
         "id": "claude-yolo-resume",
         "name": "Claude Code (YOLO Resume)",
         "command": "claude",
-        "args": [
-          "--resume",
-          "--dangerously-skip-permissions"
-        ],
+        "args": ["--resume", "--dangerously-skip-permissions"],
         "fallbackArgs": []
       },
       {
@@ -57,9 +49,7 @@
         "id": "claude-resume",
         "name": "Claude Code (Resume)",
         "command": "claude",
-        "args": [
-          "--resume"
-        ],
+        "args": ["--resume"],
         "fallbackArgs": []
       }
     ],

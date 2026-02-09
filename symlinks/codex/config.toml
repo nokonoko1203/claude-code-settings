@@ -1,0 +1,68 @@
+# =============================================================================
+# Codex CLI Configuration
+# =============================================================================
+
+# --- Core ---
+approval_policy = "never"
+file_opener = "vscode-insiders"
+model = "gpt-5.3-codex"
+model_provider = "openai"
+preferred_auth_method = "chatgpt"
+model_reasoning_effort = "medium"
+
+# --- Sandbox ---
+sandbox_mode = "workspace-write"
+sandbox_permissions = ["disk-full-read-access"]
+
+# --- Project Discovery ---
+project_doc_fallback_filenames = ["CLAUDE.md", ".agents.md"]
+
+# =============================================================================
+# MCP Servers
+# =============================================================================
+
+[mcp_servers.context7]
+args = ["-y", "@upstash/context7-mcp@latest"]
+command = "npx"
+
+[mcp_servers.playwright]
+args = ["-y", "@playwright/mcp@latest"]
+command = "npx"
+
+[mcp_servers.chrome-devtools]
+args = ["-y", "chrome-devtools-mcp@latest"]
+command = "npx"
+
+# =============================================================================
+# Model Providers
+# =============================================================================
+
+[model_providers.openai]
+base_url = "https://api.openai.com/v1"
+env_key = "OPENAI_API_KEY"
+name = "OpenAI"
+request_max_retries = 4
+stream_idle_timeout_ms = 300000
+stream_max_retries = 10
+
+[model_providers.oss]
+base_url = "http://localhost:11434/v1"
+name = "Open Source"
+
+# =============================================================================
+# Profiles
+# =============================================================================
+
+[profiles.oss]
+model = "gpt-oss:20b"
+model_provider = "oss"
+
+# =============================================================================
+# Sandbox / Features
+# =============================================================================
+
+[sandbox_workspace_write]
+network_access = true
+
+[features]
+request_rule = true

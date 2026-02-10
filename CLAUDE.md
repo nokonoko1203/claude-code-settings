@@ -12,4 +12,4 @@ This document defines the project's rules, objectives, and progress management m
 - For temporary notes for design, **create a markdown in `.tmp`** and save it.
 - Please respond critically and without pandering to my opinions, but please don't be forceful in your criticism.
 - Whenever a task arises, **always launch the task management system** and organize the details clearly.
-- When launching an agent team, always form: **Lead + Reviewer** (Claude Code agents for design/review) and **Implementer + Tester** (Claude Code agents delegating to Codex MCP via `/codex-consult` skill).
+- When launching an agent team, always form: **Lead + Reviewer** (Claude Code agents for design/review) and **Implementer + Tester** (Claude Code agents delegating to Codex CLI via `/codex` skill).

@@ -29,8 +29,8 @@ claude-code-settings/
 │   │   └── SKILL.md   # バグ調査・分析スキル
 │   ├── code-review/
 │   │   └── SKILL.md   # 統合コードレビュースキル（PRレビュー + セルフレビュー + 品質チェック）
-│   ├── codex-consult/
-│   │   └── SKILL.md   # Codex MCP 委譲スキル（実装/レビュー/テスト）
+│   ├── codex/
+│   │   └── SKILL.md   # Codex CLI 委譲スキル（実装/レビュー/テスト）
 │   ├── design-principles/
 │   │   └── SKILL.md   # デザインシステム適用スキル
 │   ├── humanize-text/
@@ -42,7 +42,7 @@ claude-code-settings/
     ├── ccmanager/     # → ~/.config/ccmanager（CCManager 設定）
     │   ├── config.json     # CCManager 設定・コマンドプリセット
     │   └── init_worktree.sh # ワークツリー作成後フックスクリプト
-    └── codex/         # → ~/.codex（Codex MCP 設定）
+    └── codex/         # → ~/.codex（Codex CLI 設定）
         ├── AGENTS.md  # Codex プロジェクトガイドライン
         ├── config.toml # Codex CLI 設定
         └── skills/    # Codex スキル（Claude Code スキルと同期）
@@ -74,7 +74,7 @@ ln -s ~/.codex ~/.claude/symlinks/codex
 
 ### Codex 設定（`symlinks/codex/`）
 
-`codex/` シンボリックリンクには、Codex MCP と連携するための Codex CLI 設定が含まれます：
+`codex/` シンボリックリンクには、`codex exec` で使用するための Codex CLI 設定が含まれます：
 
 - **`config.toml`** - モデル選択、サンドボックスモード、MCP サーバー、モデルプロバイダーなどの Codex CLI 設定
 - **`AGENTS.md`** - Codex が従うプロジェクトガイドライン（CLAUDE.md に類似するが、チーム編成など Claude Code 固有のルールは除外）
@@ -92,7 +92,7 @@ ln -s ~/.codex ~/.claude/symlinks/codex
 
 **スキル** - 一般的なタスク向けのユーザー呼び出し可能なコマンド：
 - 実装ガイドラインに基づくコードレビュー
-- Codex MCP への実装・レビュー・テストの委譲
+- Codex CLI への実装・レビュー・テストの委譲
 - デザインシステムの適用
 - 根本原因分析を含むバグ調査
 - AI 文章の自然な日本語化
@@ -115,11 +115,11 @@ Claude Code の組み込み機能である Plan Mode と AskUserQuestion を活�
 - **Context7 MCP の活用**: 常に最新のライブラリ情報を参照
 - **徹底した検証**: Write/Edit 後は必ず Read で確認
 
-### 4. Codex MCP を活用したチームワークフロー
+### 4. Codex CLI を活用したチームワークフロー
 
 エージェントチームは以下の構成に従います：
 - **Lead + Reviewer**: 設計とレビューを担当する Claude Code エージェント
-- **Implementer + Tester**: `/codex-consult` スキル経由で Codex MCP に委譲する Claude Code エージェント
+- **Implementer + Tester**: `/codex` スキル経由で Codex CLI に委譲する Claude Code エージェント
 
 この関心の分離により、独立したレビューと実装の役割を通じて品質を確保します。
 
@@ -138,7 +138,7 @@ Claude Code の組み込み機能である Plan Mode と AskUserQuestion を活�
 - 一時的な設計メモは `.tmp` に作成
 - 批判的に応答し忖度しないが、強引な批判はしない
 - タスク発生時は常にタスク管理システムを起動
-- チーム編成: Lead + Reviewer（Claude Code エージェント）と Implementer + Tester（Codex MCP via `/codex-consult`）
+- チーム編成: Lead + Reviewer（Claude Code エージェント）と Implementer + Tester（Codex CLI via `/codex`）
 
 ### .mcp.json
 
@@ -149,7 +149,6 @@ Claude Code の組み込み機能である Plan Mode と AskUserQuestion を活�
 | **context7** | ライブラリの最新ドキュメントとコード例 |
 | **playwright** | ブラウザ自動化とテスト |
 | **chrome-devtools** | Chrome DevTools 連携（コンソールログ・デバッグ） |
-| **codex** | Codex MCP（実装・レビュー・テストタスクの委譲） |
 
 ### settings.json
 
@@ -205,7 +204,7 @@ Claude Code の動作を制御する設定ファイル：
 
 #### MCP サーバー有効化（`enabledMcpjsonServers`）
 
-`.mcp.json` で定義された MCP サーバーのうち、有効化するものを制御します。`serena` はプロジェクトレベルで定義されており（グローバルの `.mcp.json` には含まれない）、`.mcp.json` の `codex` は `enableAllProjectMcpServers: true` により有効化されます。
+`.mcp.json` で定義された MCP サーバーのうち、有効化するものを制御します。`serena` はプロジェクトレベルで定義されています（グローバルの `.mcp.json` には含まれない）。
 
 - **context7** - ライブラリの最新ドキュメントとコード例
 - **playwright** - ブラウザ自動化とテスト
@@ -248,7 +247,7 @@ Claude Code は、コードインテリジェンスを強化するための公�
 | ---------------------- | --------------------------------------------------------------------------------------- |
 | `/bug-investigation`   | バグを体系的に調査し、根本原因分析と修正提案を含むレポートを生成                        |
 | `/code-review`         | PR レビュー、セルフレビュー、品質チェックを統合した包括的コードレビュー                 |
-| `/codex-consult`       | Codex MCP にタスクを委譲（実装、レビュー、テスト、設計コンサルテーション）              |
+| `/codex`               | Codex CLI にタスクを委譲（実装、レビュー、テスト、設計コンサルテーション）              |
 | `/design-principles`   | Linear、Notion、Stripe にインスパイアされた精密でミニマルなデザインシステムを適用       |
 | `/humanize-text`       | AI が書いた日本語を自然な人間らしい日本語に書き換え                                     |
 | `/kill-dev-process`    | 開発中に残った不要なサーバー、ブラウザ、ポート占有プロセスを停止                        |
@@ -270,7 +269,7 @@ Claude Code は、コードインテリジェンスを強化するための公�
 ```bash
 # 必要なディレクトリを作成
 mkdir -p ~/.claude/agents
-mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex-consult,design-principles,humanize-text,kill-dev-process}
+mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex,design-principles,humanize-text,kill-dev-process}
 
 # メイン設定ファイルをダウンロード
 curl -o ~/.claude/CLAUDE.md \
@@ -295,8 +294,8 @@ curl -o ~/.claude/skills/bug-investigation/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/bug-investigation/SKILL.md
 curl -o ~/.claude/skills/code-review/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
-curl -o ~/.claude/skills/codex-consult/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/codex-consult/SKILL.md
+curl -o ~/.claude/skills/codex/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/codex/SKILL.md
 curl -o ~/.claude/skills/design-principles/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/design-principles/SKILL.md
 curl -o ~/.claude/skills/humanize-text/SKILL.md \

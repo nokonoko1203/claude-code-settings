@@ -29,8 +29,8 @@ claude-code-settings/
 │   │   └── SKILL.md   # Bug investigation and analysis skill
 │   ├── code-review/
 │   │   └── SKILL.md   # Comprehensive code review skill (PR review + self-review + quality check)
-│   ├── codex-consult/
-│   │   └── SKILL.md   # Codex MCP delegation skill for implementation/review/testing
+│   ├── codex/
+│   │   └── SKILL.md   # Codex CLI delegation skill for implementation/review/testing
 │   ├── design-principles/
 │   │   └── SKILL.md   # Design system enforcement skill
 │   ├── humanize-text/
@@ -42,7 +42,7 @@ claude-code-settings/
     ├── ccmanager/     # → ~/.config/ccmanager (CCManager configuration)
     │   ├── config.json     # CCManager settings and command presets
     │   └── init_worktree.sh # Worktree post-creation hook script
-    └── codex/         # → ~/.codex (Codex MCP configuration)
+    └── codex/         # → ~/.codex (Codex CLI configuration)
         ├── AGENTS.md  # Codex project guidelines
         ├── config.toml # Codex CLI configuration
         └── skills/    # Codex skills (synced from Claude Code skills)
@@ -74,7 +74,7 @@ This allows configuration changes to be managed in the repository and shared acr
 
 ### Codex Configuration (`symlinks/codex/`)
 
-The `codex/` symlink contains Codex CLI configuration for use with Codex MCP:
+The `codex/` symlink contains Codex CLI configuration for use with `codex exec`:
 
 - **`config.toml`** - Codex CLI settings including model selection, sandbox mode, MCP servers, and model providers
 - **`AGENTS.md`** - Project guidelines that Codex follows (similar to CLAUDE.md but without Claude Code-specific rules like team formation)
@@ -92,7 +92,7 @@ This repository provides specialized agents and skills to enhance Claude Code's 
 
 **Skills** - User-invocable commands for common tasks:
 - Code review with implementation guidelines
-- Codex MCP delegation for implementation, review, and testing
+- Codex CLI delegation for implementation, review, and testing
 - Design system enforcement
 - Bug investigation with root cause analysis
 - AI-written Japanese text humanization
@@ -115,11 +115,11 @@ This interactive approach ensures specifications are clear before implementation
 - **Leverage Context7 MCP**: Always reference the latest library information
 - **Thorough verification**: Always verify with Read after Write/Edit
 
-### 4. Team Workflow with Codex MCP
+### 4. Team Workflow with Codex CLI
 
 Agent teams follow a structured formation:
 - **Lead + Reviewer**: Claude Code agents handling design and review
-- **Implementer + Tester**: Claude Code agents delegating to Codex MCP via `/codex-consult` skill
+- **Implementer + Tester**: Claude Code agents delegating to Codex CLI via `/codex` skill
 
 This separation of concerns ensures quality through independent review and implementation roles.
 
@@ -138,7 +138,7 @@ Defines global user guidelines. Contains the following content:
 - Create temporary design notes in `.tmp`
 - Respond critically without pandering, but not forcefully
 - Always launch the task management system for tasks
-- Team formation: Lead + Reviewer (Claude Code agents) and Implementer + Tester (Codex MCP via `/codex-consult`)
+- Team formation: Lead + Reviewer (Claude Code agents) and Implementer + Tester (Codex CLI via `/codex`)
 
 ### .mcp.json
 
@@ -149,7 +149,6 @@ Defines MCP (Model Context Protocol) servers available for use:
 | **context7** | Up-to-date documentation and code examples for libraries |
 | **playwright** | Browser automation and testing |
 | **chrome-devtools** | Chrome DevTools integration for console logs and debugging |
-| **codex** | Codex MCP for delegating implementation, review, and testing tasks |
 
 ### settings.json
 
@@ -205,7 +204,7 @@ Configuration file that controls Claude Code behavior:
 
 #### MCP Server Activation (`enabledMcpjsonServers`)
 
-Controls which MCP servers defined in `.mcp.json` are activated. Note that `serena` is defined at the project level (not in the global `.mcp.json`), while `codex` in `.mcp.json` is activated via `enableAllProjectMcpServers: true`.
+Controls which MCP servers defined in `.mcp.json` are activated. Note that `serena` is defined at the project level (not in the global `.mcp.json`).
 
 - **context7** - Up-to-date documentation and code examples for libraries
 - **playwright** - Browser automation and testing
@@ -248,7 +247,7 @@ Skills are user-invocable commands that can be called directly using the `/skill
 | ---------------------- | ------------------------------------------------------------------------------- |
 | `/bug-investigation`   | Systematically investigate bugs with root cause analysis and fix proposals      |
 | `/code-review`         | Comprehensive code review combining PR review, self-review, and quality checks  |
-| `/codex-consult`       | Delegate tasks to Codex MCP for implementation, review, testing, or design consultation |
+| `/codex`               | Delegate tasks to Codex CLI for implementation, review, testing, or design consultation |
 | `/design-principles`   | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe   |
 | `/humanize-text`       | Transform AI-written Japanese text into natural, human-like Japanese            |
 | `/kill-dev-process`    | Kill orphaned dev servers, browsers, and port-hogging processes                 |
@@ -270,7 +269,7 @@ You can quickly download and set up the configuration files using curl without c
 ```bash
 # Create necessary directories
 mkdir -p ~/.claude/agents
-mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex-consult,design-principles,humanize-text,kill-dev-process}
+mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex,design-principles,humanize-text,kill-dev-process}
 
 # Download main configuration files
 curl -o ~/.claude/CLAUDE.md \
@@ -295,8 +294,8 @@ curl -o ~/.claude/skills/bug-investigation/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/bug-investigation/SKILL.md
 curl -o ~/.claude/skills/code-review/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
-curl -o ~/.claude/skills/codex-consult/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/codex-consult/SKILL.md
+curl -o ~/.claude/skills/codex/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/codex/SKILL.md
 curl -o ~/.claude/skills/design-principles/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/design-principles/SKILL.md
 curl -o ~/.claude/skills/humanize-text/SKILL.md \

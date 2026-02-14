@@ -4,8 +4,6 @@
 
 Claude Code の設定とカスタマイズに関するベストプラクティスを集めたリポジトリです。より良いものにするため、継続的に更新・改善していきます。
 
-**注意:** このリポジトリの一部の設定は日本語ユーザー向けに設定されています。LLM を使用して、ご自身の環境に合わせて適宜翻訳・調整してください。
-
 このリポジトリの設定ファイルは `~/.claude/` ディレクトリ配下に配置することを想定しています。設定ファイルを適切な場所に配置することで、Claude Code の動作をカスタマイズし、効率的な開発環境を構築できます。
 
 ## プロジェクト構造
@@ -35,8 +33,11 @@ claude-code-settings/
 │   │   └── SKILL.md   # デザインシステム適用スキル
 │   ├── humanize-text/
 │   │   └── SKILL.md   # AI 文章の自然な日本語化スキル
-│   └── kill-dev-process/
-│       └── SKILL.md   # 開発プロセスクリーンアップスキル
+│   ├── kill-dev-process/
+│   │   └── SKILL.md   # 開発プロセスクリーンアップスキル
+│   └── playwright-cli/
+│       ├── SKILL.md   # Playwright CLI によるブラウザ自動化（トークン効率重視）
+│       └── references/ # 詳細リファレンスドキュメント
 └── symlinks/          # 外部ツール設定ファイル（シンボリックリンク）
     ├── claude.json    # Claude Code ユーザー統計・設定キャッシュ
     ├── ccmanager/     # → ~/.config/ccmanager（CCManager 設定）
@@ -50,7 +51,8 @@ claude-code-settings/
             ├── code-review/
             ├── design-principles/
             ├── humanize-text/
-            └── kill-dev-process/
+            ├── kill-dev-process/
+            └── playwright-cli/
 ```
 
 ## symlinks フォルダについて
@@ -78,7 +80,7 @@ ln -s ~/.codex ~/.claude/symlinks/codex
 
 - **`config.toml`** - モデル選択、サンドボックスモード、MCP サーバー、モデルプロバイダーなどの Codex CLI 設定
 - **`AGENTS.md`** - Codex が従うプロジェクトガイドライン（CLAUDE.md に類似するが、チーム編成など Claude Code 固有のルールは除外）
-- **`skills/`** - Claude Code スキルの Codex 互換バージョン（bug-investigation、code-review、design-principles、humanize-text、kill-dev-process）
+- **`skills/`** - Claude Code スキルの Codex 互換バージョン（bug-investigation、code-review、design-principles、humanize-text、kill-dev-process、playwright-cli）
 
 ## 主な機能
 
@@ -113,6 +115,7 @@ Claude Code の組み込み機能である Plan Mode と AskUserQuestion を活�
 - **並列処理の活用**: 複数の独立したプロセスを同時に実行
 - **英語で思考し、日本語で応答**: 内部処理は英語、ユーザーへの応答は日本語
 - **Context7 MCP の活用**: 常に最新のライブラリ情報を参照
+- **トークン効率的なブラウザ自動化**: MCP の代わりに Playwright CLI を使用し、トークン消費を約4分の1に削減
 - **徹底した検証**: Write/Edit 後は必ず Read で確認
 
 ### 4. Codex CLI を活用したチームワークフロー
@@ -132,8 +135,8 @@ Claude Code の組み込み機能である Plan Mode と AskUserQuestion を活�
 - **トップレベルルール**: MCP 使用、テスト要件、チームワークフローを含む基本的な運用ルール
 - ライブラリ情報には常に Context7 MCP を使用
 - コード調査には LSP を使用して正確なナビゲーションと分析を実現
-- フロントエンド機能は Playwright MCP または Chrome DevTools MCP で検証
-- コンソールログ確認には Chrome DevTools MCP を使用
+- フロントエンド機能は Playwright CLI（`playwright-cli` via Bash）で検証
+- コンソールログ・ネットワーク確認には `playwright-cli console` / `playwright-cli network` を使用
 - 意思決定には AskUserQuestion を使用
 - 一時的な設計メモは `.tmp` に作成
 - 批判的に応答し忖度しないが、強引な批判はしない
@@ -147,8 +150,8 @@ Claude Code の組み込み機能である Plan Mode と AskUserQuestion を活�
 | サーバー | 説明 |
 | --- | --- |
 | **context7** | ライブラリの最新ドキュメントとコード例 |
-| **playwright** | ブラウザ自動化とテスト |
-| **chrome-devtools** | Chrome DevTools 連携（コンソールログ・デバッグ） |
+
+> **注意:** ブラウザ自動化は以前 Playwright MCP と Chrome DevTools MCP を使用していましたが、トークン効率の大幅な改善（約4倍削減）のため **Playwright CLI**（`@playwright/cli`）に移行しました。使い方は `skills/playwright-cli/` スキルを参照してください。
 
 ### settings.json
 
@@ -187,8 +190,6 @@ Claude Code の動作を制御する設定ファイル：
 - ネットワーク操作: `curl`, `wget`, `nc`
 - パッケージ削除: `npm uninstall`, `npm remove`
 - 直接的なデータベース操作: `psql`, `mysql`
-- 特定の Serena MCP ツール: `create_text_file`, `delete_lines`, `execute_shell_command`, `replace_lines`, `replace_regex`
-
 > **注意:** `rm` は allow と deny の両方に存在します。deny が優先されるため、`rm` コマンドには明示的な承認が必要です。
 
 #### フック設定（`hooks`）
@@ -204,12 +205,9 @@ Claude Code の動作を制御する設定ファイル：
 
 #### MCP サーバー有効化（`enabledMcpjsonServers`）
 
-`.mcp.json` で定義された MCP サーバーのうち、有効化するものを制御します。`serena` はプロジェクトレベルで定義されています（グローバルの `.mcp.json` には含まれない）。
+`.mcp.json` で定義された MCP サーバーのうち、有効化するものを制御します。
 
 - **context7** - ライブラリの最新ドキュメントとコード例
-- **playwright** - ブラウザ自動化とテスト
-- **serena** - セマンティックコード分析とインテリジェントなコードナビゲーション
-- **chrome-devtools** - Chrome DevTools 連携
 
 #### その他の設定
 - `cleanupPeriodDays`: 20 - 古いデータのクリーンアップ期間
@@ -251,6 +249,7 @@ Claude Code は、コードインテリジェンスを強化するための公�
 | `/design-principles`   | Linear、Notion、Stripe にインスパイアされた精密でミニマルなデザインシステムを適用       |
 | `/humanize-text`       | AI が書いた日本語を自然な人間らしい日本語に書き換え                                     |
 | `/kill-dev-process`    | 開発中に残った不要なサーバー、ブラウザ、ポート占有プロセスを停止                        |
+| `/playwright-cli`      | Playwright CLI によるトークン効率的なブラウザ自動化（Playwright MCP の後継）            |
 
 ## クイックインストール（curl）
 
@@ -269,7 +268,7 @@ Claude Code は、コードインテリジェンスを強化するための公�
 ```bash
 # 必要なディレクトリを作成
 mkdir -p ~/.claude/agents
-mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex,design-principles,humanize-text,kill-dev-process}
+mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex,design-principles,humanize-text,kill-dev-process,playwright-cli}
 
 # メイン設定ファイルをダウンロード
 curl -o ~/.claude/CLAUDE.md \
@@ -302,6 +301,8 @@ curl -o ~/.claude/skills/humanize-text/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/humanize-text/SKILL.md
 curl -o ~/.claude/skills/kill-dev-process/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/kill-dev-process/SKILL.md
+curl -o ~/.claude/skills/playwright-cli/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/playwright-cli/SKILL.md
 ```
 
 ### 個別ファイルのダウンロード
@@ -328,6 +329,7 @@ curl -o ~/.claude/skills/code-review/SKILL.md \
 - [textlint](https://textlint.github.io/)
 - [CCManager](https://github.com/kbwo/ccmanager)
 - [Context7](https://context7.com/)
+- [Playwright CLI](https://www.npmjs.com/package/@playwright/cli)
 
 ## ライセンス
 

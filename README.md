@@ -35,8 +35,11 @@ claude-code-settings/
 │   │   └── SKILL.md   # Design system enforcement skill
 │   ├── humanize-text/
 │   │   └── SKILL.md   # AI-written Japanese text humanization skill
-│   └── kill-dev-process/
-│       └── SKILL.md   # Dev process cleanup skill
+│   ├── kill-dev-process/
+│   │   └── SKILL.md   # Dev process cleanup skill
+│   └── playwright-cli/
+│       ├── SKILL.md   # Browser automation via Playwright CLI (token-efficient)
+│       └── references/ # Detailed reference docs
 └── symlinks/          # External tools config files as symbolic links
     ├── claude.json    # Claude Code user stats and settings cache
     ├── ccmanager/     # → ~/.config/ccmanager (CCManager configuration)
@@ -50,7 +53,8 @@ claude-code-settings/
             ├── code-review/
             ├── design-principles/
             ├── humanize-text/
-            └── kill-dev-process/
+            ├── kill-dev-process/
+            └── playwright-cli/
 ```
 
 ## About the symlinks Folder
@@ -78,7 +82,7 @@ The `codex/` symlink contains Codex CLI configuration for use with `codex exec`:
 
 - **`config.toml`** - Codex CLI settings including model selection, sandbox mode, MCP servers, and model providers
 - **`AGENTS.md`** - Project guidelines that Codex follows (similar to CLAUDE.md but without Claude Code-specific rules like team formation)
-- **`skills/`** - Codex-compatible versions of Claude Code skills (bug-investigation, code-review, design-principles, humanize-text, kill-dev-process)
+- **`skills/`** - Codex-compatible versions of Claude Code skills (bug-investigation, code-review, design-principles, humanize-text, kill-dev-process, playwright-cli)
 
 ## Key Features
 
@@ -113,6 +117,7 @@ This interactive approach ensures specifications are clear before implementation
 - **Utilize parallel processing**: Multiple independent processes are executed simultaneously
 - **Think in English, respond in Japanese**: Internal processing in English, user responses in Japanese
 - **Leverage Context7 MCP**: Always reference the latest library information
+- **Token-efficient browser automation**: Use Playwright CLI instead of MCP for ~4x token reduction
 - **Thorough verification**: Always verify with Read after Write/Edit
 
 ### 4. Team Workflow with Codex CLI
@@ -132,8 +137,8 @@ Defines global user guidelines. Contains the following content:
 - **Top-Level Rules**: Basic operational rules including MCP usage, testing requirements, and team workflows
 - Always use Context7 MCP for library information
 - Use LSP for accurate code navigation and analysis
-- Verify frontend functionality with Playwright MCP or Chrome DevTools MCP
-- Use Chrome DevTools MCP for console log checking
+- Verify frontend functionality with Playwright CLI (`playwright-cli` via Bash)
+- Use `playwright-cli console` and `playwright-cli network` for console logs and network requests
 - Use AskUserQuestion for decision-making
 - Create temporary design notes in `.tmp`
 - Respond critically without pandering, but not forcefully
@@ -147,8 +152,8 @@ Defines MCP (Model Context Protocol) servers available for use:
 | Server | Description |
 | --- | --- |
 | **context7** | Up-to-date documentation and code examples for libraries |
-| **playwright** | Browser automation and testing |
-| **chrome-devtools** | Chrome DevTools integration for console logs and debugging |
+
+> **Note:** Browser automation previously used Playwright MCP and Chrome DevTools MCP servers, but has been migrated to **Playwright CLI** (`@playwright/cli`) for significantly better token efficiency (~4x reduction). See the `skills/playwright-cli/` skill for usage.
 
 ### settings.json
 
@@ -187,8 +192,6 @@ Configuration file that controls Claude Code behavior:
 - Network operations: `curl`, `wget`, `nc`
 - Package removal: `npm uninstall`, `npm remove`
 - Direct database operations: `psql`, `mysql`
-- Specific Serena MCP tools: `create_text_file`, `delete_lines`, `execute_shell_command`, `replace_lines`, `replace_regex`
-
 > **Note:** `rm` appears in both allow and deny lists. Since deny takes precedence, `rm` commands require explicit approval.
 
 #### Hook Configuration (`hooks`)
@@ -204,12 +207,9 @@ Configuration file that controls Claude Code behavior:
 
 #### MCP Server Activation (`enabledMcpjsonServers`)
 
-Controls which MCP servers defined in `.mcp.json` are activated. Note that `serena` is defined at the project level (not in the global `.mcp.json`).
+Controls which MCP servers defined in `.mcp.json` are activated.
 
 - **context7** - Up-to-date documentation and code examples for libraries
-- **playwright** - Browser automation and testing
-- **serena** - Semantic code analysis and intelligent code navigation
-- **chrome-devtools** - Chrome DevTools integration
 
 #### Additional Configuration
 - `cleanupPeriodDays`: 20 - Cleanup period for old data
@@ -251,6 +251,7 @@ Skills are user-invocable commands that can be called directly using the `/skill
 | `/design-principles`   | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe   |
 | `/humanize-text`       | Transform AI-written Japanese text into natural, human-like Japanese            |
 | `/kill-dev-process`    | Kill orphaned dev servers, browsers, and port-hogging processes                 |
+| `/playwright-cli`      | Token-efficient browser automation via Playwright CLI (replaces Playwright MCP) |
 
 ## Quick Install (curl)
 
@@ -269,7 +270,7 @@ You can quickly download and set up the configuration files using curl without c
 ```bash
 # Create necessary directories
 mkdir -p ~/.claude/agents
-mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex,design-principles,humanize-text,kill-dev-process}
+mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex,design-principles,humanize-text,kill-dev-process,playwright-cli}
 
 # Download main configuration files
 curl -o ~/.claude/CLAUDE.md \
@@ -302,6 +303,8 @@ curl -o ~/.claude/skills/humanize-text/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/humanize-text/SKILL.md
 curl -o ~/.claude/skills/kill-dev-process/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/kill-dev-process/SKILL.md
+curl -o ~/.claude/skills/playwright-cli/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/playwright-cli/SKILL.md
 ```
 
 ### Download Individual Files
@@ -328,6 +331,7 @@ curl -o ~/.claude/skills/code-review/SKILL.md \
 - [textlint](https://textlint.github.io/)
 - [CCManager](https://github.com/kbwo/ccmanager)
 - [Context7](https://context7.com/)
+- [Playwright CLI](https://www.npmjs.com/package/@playwright/cli)
 
 ## License
 

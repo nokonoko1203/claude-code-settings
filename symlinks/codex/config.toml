@@ -15,7 +15,7 @@ sandbox_mode = "workspace-write"
 sandbox_permissions = ["disk-full-read-access"]
 
 # --- Project Discovery ---
-project_doc_fallback_filenames = ["CLAUDE.md", ".agents.md"]
+project_doc_fallback_filenames = ["CLAUDE.md"]
 
 # =============================================================================
 # MCP Servers
@@ -23,14 +23,6 @@ project_doc_fallback_filenames = ["CLAUDE.md", ".agents.md"]
 
 [mcp_servers.context7]
 args = ["-y", "@upstash/context7-mcp@latest"]
-command = "npx"
-
-[mcp_servers.playwright]
-args = ["-y", "@playwright/mcp@latest"]
-command = "npx"
-
-[mcp_servers.chrome-devtools]
-args = ["-y", "chrome-devtools-mcp@latest"]
 command = "npx"
 
 # =============================================================================

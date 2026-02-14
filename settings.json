@@ -55,21 +55,11 @@
       "Bash(npm uninstall:*)",
       "Bash(npm remove:*)",
       "Bash(psql:*)",
-      "Bash(mysql:*)",
-      "mcp__serena__create_text_file",
-      "mcp__serena__delete_lines",
-      "mcp__serena__execute_shell_command",
-      "mcp__serena__replace_lines",
-      "mcp__serena__replace_regex"
+      "Bash(mysql:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "context7",
-    "playwright",
-    "serena",
-    "chrome-devtools"
-  ],
+  "enabledMcpjsonServers": ["context7"],
   "hooks": {
     "PostToolUse": [
       {

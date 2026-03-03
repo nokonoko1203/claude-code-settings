@@ -8,53 +8,39 @@ A repository collecting best practices for Claude Code settings and customizatio
 
 The configuration files in this repository are designed to be placed under `~/.claude/` directory. By placing these configuration files in the appropriate locations, you can customize Claude Code's behavior and build an efficient development environment.
 
+## Approach
+
+Models are powerful enough now that complex configuration is unnecessary. Over-configuring can actually be counterproductive. This repository focuses on a few high-impact areas only.
+
+- Claude Code has a rich set of slash commands. Master these first — add custom configuration later.
+    - /resume, /rewind, /fork, /copy: Resume, restore, branch, and copy conversations
+    - /review: Review pull requests
+    - /simplify: Review and fix changed code
+    - /copy: Copy session contents to clipboard
+    - /add-dir: Add directories to the search scope
+    - /batch: Create multiple PRs for large-scale changes using git worktrees
+    - /plan: Run in plan mode
+- Agent Teams let you distribute tasks across multiple agents working in parallel. By separating roles such as design, review, implementation, and testing, you can tackle large-scale tasks efficiently.
+- Enable official plugins. The LSP plugins `typescript-lsp`, `pyright-lsp`, and `rust-analyzer-lsp` provide accurate code navigation without extra token cost.
+- In some cases, prefer CLI tools over MCP. MCP servers consume context on every call. CLI tools can accomplish the same tasks with far fewer tokens. For example, replacing Playwright MCP with Playwright CLI.
+
 ## Project Structure
 
 ```
 claude-code-settings/
-├── .mcp.json          # MCP servers configuration file
-├── .textlintrc.json   # textlint configuration file
 ├── CLAUDE.md          # Global user guidelines for ~/.claude/ placement
 ├── LICENSE            # MIT License file
 ├── README.md          # This file (English)
 ├── README_ja.md       # Japanese version
-├── agents/            # Custom agent definitions
-│   ├── backend-design-expert.md           # Backend/API design expert
-│   ├── backend-implementation-engineer.md # Hono + TypeScript backend implementation
-│   ├── frontend-design-expert.md          # Frontend design reviewer
-│   └── frontend-implementation-engineer.md # Svelte 5 + SvelteKit implementation
 ├── settings.json      # Claude Code configuration file
 ├── skills/            # Skill definitions
-│   ├── bug-investigation/
-│   │   └── SKILL.md   # Bug investigation and analysis skill
-│   ├── code-review/
-│   │   └── SKILL.md   # Comprehensive code review skill (PR review + self-review + quality check)
-│   ├── codex/
-│   │   └── SKILL.md   # Codex CLI delegation skill for implementation/review/testing
-│   ├── design-principles/
-│   │   └── SKILL.md   # Design system enforcement skill
-│   ├── humanize-text/
-│   │   └── SKILL.md   # AI-written Japanese text humanization skill
 │   ├── kill-dev-process/
 │   │   └── SKILL.md   # Dev process cleanup skill
 │   └── playwright-cli/
 │       ├── SKILL.md   # Browser automation via Playwright CLI (token-efficient)
 │       └── references/ # Detailed reference docs
 └── symlinks/          # External tools config files as symbolic links
-    ├── claude.json    # Claude Code user stats and settings cache
-    ├── ccmanager/     # → ~/.config/ccmanager (CCManager configuration)
-    │   ├── config.json     # CCManager settings and command presets
-    │   └── init_worktree.sh # Worktree post-creation hook script
-    └── codex/         # → ~/.codex (Codex CLI configuration)
-        ├── AGENTS.md  # Codex project guidelines
-        ├── config.toml # Codex CLI configuration
-        └── skills/    # Codex skills (synced from Claude Code skills)
-            ├── bug-investigation/
-            ├── code-review/
-            ├── design-principles/
-            ├── humanize-text/
-            ├── kill-dev-process/
-            └── playwright-cli/
+    └── claude.json    # Claude Code MCP server configuration template
 ```
 
 ## About the symlinks Folder
@@ -66,65 +52,39 @@ In actual environments, these files are placed as symbolic links in specified lo
 ```bash
 # Link Claude Code configuration
 ln -s /path/to/settings.json ~/.claude/settings.json
-
-# Link ccmanager configuration
-ln -s ~/.config/ccmanager ~/.claude/symlinks/ccmanager
-
-# Link Codex configuration
-ln -s ~/.codex ~/.claude/symlinks/codex
 ```
 
 This allows configuration changes to be managed in the repository and shared across multiple environments.
 
-### Codex Configuration (`symlinks/codex/`)
-
-The `codex/` symlink contains Codex CLI configuration for use with `codex exec`:
-
-- **`config.toml`** - Codex CLI settings including model selection, sandbox mode, MCP servers, and model providers
-- **`AGENTS.md`** - Project guidelines that Codex follows (similar to CLAUDE.md but without Claude Code-specific rules like team formation)
-- **`skills/`** - Codex-compatible versions of Claude Code skills (bug-investigation, code-review, design-principles, humanize-text, kill-dev-process, playwright-cli)
-
 ## Key Features
 
-### 1. Custom Agents and Skills
+### 1. Skills
 
-This repository provides specialized agents and skills to enhance Claude Code's capabilities:
-
-**Agents** - Specialized agents for specific domains:
-- Backend/API design and implementation expertise
-- Frontend development and design review
+This repository provides skills to enhance Claude Code's capabilities:
 
 **Skills** - User-invocable commands for common tasks:
-- Code review with implementation guidelines
-- Codex CLI delegation for implementation, review, and testing
-- Design system enforcement
-- Bug investigation with root cause analysis
-- AI-written Japanese text humanization
 - Dev process cleanup
+- Token-efficient browser automation via Playwright CLI
 
 ### 2. Interactive Development Workflow
 
-Leverage Claude Code's built-in Plan Mode and AskUserQuestion features to:
-- Clarify requirements through interactive dialogue
-- Create detailed implementation plans before coding
-- Ensure alignment with user intent throughout development
-- Systematically approach complex tasks
+Rules defined in CLAUDE.md promote interactive development with Claude Code:
+- Use **AskUserQuestion** to support user decision-making
+- **Always launch the task management system** when tasks arise to organize details clearly
 
-This interactive approach ensures specifications are clear before implementation begins.
+This approach enables collaborative decision-making with the user during implementation.
 
 ### 3. Efficient Development Rules
 
-- **Utilize parallel processing**: Multiple independent processes are executed simultaneously
-- **Think in English, respond in Japanese**: Internal processing in English, user responses in Japanese
 - **Leverage Context7 MCP**: Always reference the latest library information
 - **Token-efficient browser automation**: Use Playwright CLI instead of MCP for ~4x token reduction
-- **Thorough verification**: Always verify with Read after Write/Edit
+- **LSP for code investigation**: Accurate code navigation and analysis
 
-### 4. Team Workflow with Codex CLI
+### 4. Team Workflow
 
 Agent teams follow a structured formation:
 - **Lead + Reviewer**: Claude Code agents handling design and review
-- **Implementer + Tester**: Claude Code agents delegating to Codex CLI via `/codex` skill
+- **Implementer + Tester**: Claude Code agents for implementation and testing
 
 This separation of concerns ensures quality through independent review and implementation roles.
 
@@ -143,17 +103,7 @@ Defines global user guidelines. Contains the following content:
 - Create temporary design notes in `.tmp`
 - Respond critically without pandering, but not forcefully
 - Always launch the task management system for tasks
-- Team formation: Lead + Reviewer (Claude Code agents) and Implementer + Tester (Codex CLI via `/codex`)
-
-### .mcp.json
-
-Defines MCP (Model Context Protocol) servers available for use:
-
-| Server | Description |
-| --- | --- |
-| **context7** | Up-to-date documentation and code examples for libraries |
-
-> **Note:** Browser automation previously used Playwright MCP and Chrome DevTools MCP servers, but has been migrated to **Playwright CLI** (`@playwright/cli`) for significantly better token efficiency (~4x reduction). See the `skills/playwright-cli/` skill for usage.
+- Team formation: Lead + Reviewer (Claude Code agents) and Implementer + Tester (Claude Code agents)
 
 ### settings.json
 
@@ -207,7 +157,7 @@ Configuration file that controls Claude Code behavior:
 
 #### MCP Server Activation (`enabledMcpjsonServers`)
 
-Controls which MCP servers defined in `.mcp.json` are activated.
+Controls which MCP servers defined in project-level `.mcp.json` files are activated.
 
 - **context7** - Up-to-date documentation and code examples for libraries
 
@@ -218,40 +168,24 @@ Controls which MCP servers defined in `.mcp.json` are activated.
 - `alwaysThinkingEnabled`: true - Always show thinking process
 - `enabledPlugins`: LSP plugins for enhanced code intelligence (rust-analyzer, typescript, pyright)
 
-### Custom Agents (agents/)
-
-Custom agents provide specialized capabilities for specific development tasks. These agents are automatically available when using Claude Code and can be invoked through the Task tool.
-
-| Agent                              | Description                                                                                 |
-| ---------------------------------- | ------------------------------------------------------------------------------------------- |
-| `backend-design-expert`            | Code-agnostic backend/API expert for specification-first design and operational correctness |
-| `backend-implementation-engineer`  | Implements backend HTTP APIs using Hono + TypeScript with clean architecture                |
-| `frontend-design-expert`           | Code-agnostic frontend reviewer for SPA/SSR apps, audits architecture and performance       |
-| `frontend-implementation-engineer` | Implements production-ready web apps using Svelte 5 + SvelteKit + TypeScript                |
-
 ### Official Plugins
 
 Claude Code provides official LSP (Language Server Protocol) plugins for enhanced code intelligence. These are configured in `settings.json` under `enabledPlugins`.
 
-| Plugin               | Description                                                |
-| -------------------- | ---------------------------------------------------------- |
-| `rust-analyzer-lsp`  | Rust language server for code navigation and analysis      |
-| `typescript-lsp`     | TypeScript/JavaScript language server                      |
-| `pyright-lsp`        | Python language server for type checking and analysis      |
+| Plugin              | Description                                           |
+| ------------------- | ----------------------------------------------------- |
+| `rust-analyzer-lsp` | Rust language server for code navigation and analysis |
+| `typescript-lsp`    | TypeScript/JavaScript language server                 |
+| `pyright-lsp`       | Python language server for type checking and analysis |
 
 ### Skills (skills/)
 
 Skills are user-invocable commands that can be called directly using the `/skill-name` syntax.
 
-| Skill                  | Description                                                                     |
-| ---------------------- | ------------------------------------------------------------------------------- |
-| `/bug-investigation`   | Systematically investigate bugs with root cause analysis and fix proposals      |
-| `/code-review`         | Comprehensive code review combining PR review, self-review, and quality checks  |
-| `/codex`               | Delegate tasks to Codex CLI for implementation, review, testing, or design consultation |
-| `/design-principles`   | Enforce precise, minimal design system inspired by Linear, Notion, and Stripe   |
-| `/humanize-text`       | Transform AI-written Japanese text into natural, human-like Japanese            |
-| `/kill-dev-process`    | Kill orphaned dev servers, browsers, and port-hogging processes                 |
-| `/playwright-cli`      | Token-efficient browser automation via Playwright CLI (replaces Playwright MCP) |
+| Skill               | Description                                                                     |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `/kill-dev-process` | Kill orphaned dev servers, browsers, and port-hogging processes                 |
+| `/playwright-cli`   | Token-efficient browser automation via Playwright CLI (replaces Playwright MCP) |
 
 ## Quick Install (curl)
 
@@ -259,7 +193,7 @@ You can quickly download and set up the configuration files using curl without c
 
 > **WARNING: This will overwrite existing files!**
 >
-> If you have already customized files such as `~/.claude/CLAUDE.md`, `~/.claude/settings.json`, or any files in `~/.claude/agents/` or `~/.claude/skills/`, **they will be overwritten and your custom settings will be lost**.
+> If you have already customized files such as `~/.claude/CLAUDE.md`, `~/.claude/settings.json`, or any files in `~/.claude/skills/`, **they will be overwritten and your custom settings will be lost**.
 >
 > **Before running these commands:**
 > 1. Back up your existing `~/.claude/` directory: `cp -r ~/.claude ~/.claude.backup`
@@ -269,38 +203,15 @@ You can quickly download and set up the configuration files using curl without c
 
 ```bash
 # Create necessary directories
-mkdir -p ~/.claude/agents
-mkdir -p ~/.claude/skills/{bug-investigation,code-review,codex,design-principles,humanize-text,kill-dev-process,playwright-cli}
+mkdir -p ~/.claude/skills/{kill-dev-process,playwright-cli}
 
 # Download main configuration files
 curl -o ~/.claude/CLAUDE.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/CLAUDE.md
 curl -o ~/.claude/settings.json \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/settings.json
-curl -o ~/.claude/.mcp.json \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/.mcp.json
-
-# Download agents
-curl -o ~/.claude/agents/backend-design-expert.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/backend-design-expert.md
-curl -o ~/.claude/agents/backend-implementation-engineer.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/backend-implementation-engineer.md
-curl -o ~/.claude/agents/frontend-design-expert.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/frontend-design-expert.md
-curl -o ~/.claude/agents/frontend-implementation-engineer.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/agents/frontend-implementation-engineer.md
 
 # Download skills
-curl -o ~/.claude/skills/bug-investigation/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/bug-investigation/SKILL.md
-curl -o ~/.claude/skills/code-review/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
-curl -o ~/.claude/skills/codex/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/codex/SKILL.md
-curl -o ~/.claude/skills/design-principles/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/design-principles/SKILL.md
-curl -o ~/.claude/skills/humanize-text/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/humanize-text/SKILL.md
 curl -o ~/.claude/skills/kill-dev-process/SKILL.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/kill-dev-process/SKILL.md
 curl -o ~/.claude/skills/playwright-cli/SKILL.md \
@@ -318,18 +229,15 @@ curl -o ~/.claude/CLAUDE.md \
   https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/CLAUDE.md
 
 # Example: Download only a specific skill
-mkdir -p ~/.claude/skills/code-review
-curl -o ~/.claude/skills/code-review/SKILL.md \
-  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/code-review/SKILL.md
+mkdir -p ~/.claude/skills/kill-dev-process
+curl -o ~/.claude/skills/kill-dev-process/SKILL.md \
+  https://raw.githubusercontent.com/nokonoko1203/claude-code-settings/main/skills/kill-dev-process/SKILL.md
 ```
 
 ## References
 
 - [Claude Code overview](https://docs.anthropic.com/en/docs/claude-code)
 - [Model Context Protocol (MCP)](https://docs.anthropic.com/en/docs/mcp)
-- [OpenAI Codex](https://openai.com/codex)
-- [textlint](https://textlint.github.io/)
-- [CCManager](https://github.com/kbwo/ccmanager)
 - [Context7](https://context7.com/)
 - [Playwright CLI](https://www.npmjs.com/package/@playwright/cli)
 

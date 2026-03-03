@@ -69,10 +69,10 @@ This repository provides skills to enhance Claude Code's capabilities:
 ### 2. Interactive Development Workflow
 
 Rules defined in CLAUDE.md promote interactive development with Claude Code:
+- Follow the order: research → plan → approval → implement. No code before approval.
+- Write research findings and plans as markdown in `.tmp` so the user can review and annotate
 - Use **AskUserQuestion** to support user decision-making
 - **Always launch the task management system** when tasks arise to organize details clearly
-
-This approach enables collaborative decision-making with the user during implementation.
 
 ### 3. Efficient Development Rules
 
@@ -99,8 +99,10 @@ Defines global user guidelines. Contains the following content:
 - Use LSP for accurate code navigation and analysis
 - Verify frontend functionality with Playwright CLI (`playwright-cli` via Bash)
 - Use `playwright-cli console` and `playwright-cli network` for console logs and network requests
+- Do not write code before approval. Follow the order: research → plan → approval → implement
+- Write research findings and plans as markdown in `.tmp` — never report only verbally
+- Address all user annotations on plans and do not implement until explicitly told to
 - Use AskUserQuestion for decision-making
-- Create temporary design notes in `.tmp`
 - Respond critically without pandering, but not forcefully
 - Always launch the task management system for tasks
 - Team formation: Lead + Reviewer (Claude Code agents) and Implementer + Tester (Claude Code agents)

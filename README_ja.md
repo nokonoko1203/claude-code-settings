@@ -125,35 +125,17 @@ Claude Code の動作を制御する設定ファイル：
 
 #### パーミッション設定（`permissions`）
 
-**allow（許可リスト）**:
-- ファイル読み取り: `Read(**)`
-- 特定ディレクトリへの書き込み: `Write(src/**)`, `Write(docs/**)`, `Write(.tmp/**)`
-- パッケージ管理: `pnpm install`, `pnpm run test`, `pnpm run build`
-- ファイル操作: `rm`
-- 基本的なシェルコマンド: `ls`, `cat`, `head`, `tail`, `pwd`, `find`, `tree`, `mkdir`, `mv`
-- Docker 操作: `docker compose up -d --build`
-- macOS 通知: `osascript -e`
+Bypass モードでの運用を前提とし、許可リストは設定していません。拒否リストのみで最低限の安全ガードを設けています。
 
 **deny（拒否リスト）**:
 - 危険なコマンド: `sudo`, `rm`, `rm -rf`
-- Git 操作: `git push`, `git commit`, `git reset`, `git rebase`, `git rm`, `git clean`
-- セキュリティ関連: `.env.*` ファイルの読み取り、`id_rsa`、`id_ed25519`、トークン、キー
-- 機密ファイルへの書き込み: `.env*`, `**/secrets/**`
+- Git 操作: `git push`, `git reset`, `git rebase`, `git rm`, `git clean`
 - ネットワーク操作: `curl`, `wget`, `nc`
-- パッケージ削除: `npm uninstall`, `npm remove`
-- 直接的なデータベース操作: `psql`, `mysql`
-> **注意:** `rm` は allow と deny の両方に存在します。deny が優先されるため、`rm` コマンドには明示的な承認が必要です。
 
 #### フック設定（`hooks`）
 
-**PostToolUse**（ツール使用後の自動処理）
-- JS/TS/JSON/TSX ファイル編集時に Prettier で自動フォーマット
-
 **Notification**（通知設定 - macOS）
 - macOS 通知システムを使用してカスタムメッセージとタイトルで通知を表示
-
-**Stop**（作業完了時の処理）
-- 「作業が完了しました」通知を表示
 
 #### MCP サーバー有効化（`enabledMcpjsonServers`）
 

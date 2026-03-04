@@ -127,35 +127,17 @@ Configuration file that controls Claude Code behavior:
 
 #### Permission Configuration (`permissions`)
 
-**allow (allowlist)**:
-- File reading: `Read(**)`
-- Writing to specific directories: `Write(src/**)`, `Write(docs/**)`, `Write(.tmp/**)`
-- Package management: `pnpm install`, `pnpm run test`, `pnpm run build`
-- File operations: `rm`
-- Basic shell commands: `ls`, `cat`, `head`, `tail`, `pwd`, `find`, `tree`, `mkdir`, `mv`
-- Docker operations: `docker compose up -d --build`
-- macOS notifications: `osascript -e`
+Designed for Bypass mode operation — no allowlist is configured. Only a deny list provides minimal safety guards.
 
 **deny (blocklist)**:
 - Dangerous commands: `sudo`, `rm`, `rm -rf`
-- Git operations: `git push`, `git commit`, `git reset`, `git rebase`, `git rm`, `git clean`
-- Security related: Reading `.env.*` files, `id_rsa`, `id_ed25519`, tokens, keys
-- Writing sensitive files: `.env*`, `**/secrets/**`
+- Git operations: `git push`, `git reset`, `git rebase`, `git rm`, `git clean`
 - Network operations: `curl`, `wget`, `nc`
-- Package removal: `npm uninstall`, `npm remove`
-- Direct database operations: `psql`, `mysql`
-> **Note:** `rm` appears in both allow and deny lists. Since deny takes precedence, `rm` commands require explicit approval.
 
 #### Hook Configuration (`hooks`)
 
-**PostToolUse** (Automatic processing after tool use)
-- Automatic Prettier formatting when editing JS/TS/JSON/TSX files
-
 **Notification** (Notification settings - macOS)
 - Display notifications with custom messages and titles using macOS notification system
-
-**Stop** (Processing when work is completed)
-- Display "作業が完了しました" (Work completed) notification
 
 #### MCP Server Activation (`enabledMcpjsonServers`)
 
